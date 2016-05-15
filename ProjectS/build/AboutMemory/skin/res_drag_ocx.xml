@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>  
+<Window size="300,30">
+  <TileLayout name="res_layout" columns="3" vscrollbar="true" bkcolor="#ff123456" childpadding="2" inset="2,2,2,2">
+  </TileLayout>
+</Window>

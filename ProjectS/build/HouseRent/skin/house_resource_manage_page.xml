@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window size="1000,650" roundcorner="5,5" caption="0,0,0,35" sizebox="4,4,6,6" >
+	<Font name="宋体" size="20" />
+	<Font name="宋体" size="20" bold="true" />
+	<Font name="宋体" size="15" />
+	<Font name="宋体" size="15" bold="true" />
+	<Font name="宋体" size="12" />
+	<Font name="宋体" size="12" bold="true" />
+	<VerticalLayout inset="5,5,5,5" bkcolor="#FF1868c2" bkcolor2="#FF06b1ab" bkcolor3="#FF1868c2">
+		<HorizontalLayout height="30">
+			<Label text="城区" width="27"/>
+      <Edit name="" width="30" height="25"/>
+      <Control width="10" />
+      <Label text="片区" width="27"/>
+      <Edit name="" width="30" height="25"/>
+		</HorizontalLayout>
+		<List name="files_list" vscrollbar="true" bkcolor="#" inset="5,0,5,0" bordersize="1" bordercolor="#FFaaaaaa" borderround="5,5">
+			<ListHeader height="27" menu="true">
+				<ListHeaderItem text="房源编号"/>
+				<ListHeaderItem text="交易"/>
+				<ListHeaderItem text="城区"/>
+				<ListHeaderItem text="片区"/>
+				<ListHeaderItem text="楼盘"/>
+				<ListHeaderItem text="栋座"/>
+				<ListHeaderItem text="房号"/>
+				<ListHeaderItem text="楼层"/>
+				<ListHeaderItem text="户型"/>
+				<ListHeaderItem text="面积"/>
+				<ListHeaderItem text="价格"/>
+				<ListHeaderItem text="委托日"/>
+				<ListHeaderItem text="部门"/>
+				<ListHeaderItem text="员工"/>
+				<ListHeaderItem text="公私"/>
+				<ListHeaderItem text="跟进"/>
+				<ListHeaderItem text="操作" width="100"/>
+			</ListHeader>
+		</List>
+	</VerticalLayout>
+</Window>

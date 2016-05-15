@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window size="208,290">
+  <VerticalLayout childpadding="10">
+    <HorizontalLayout height="200">
+      <Container width="208">
+        <Button name="ptz_slow" float="true" pos="10,10,66,66" bkcolor="#ff292d37" borderround="5,5" bordercolor="#ff1a1b1c"   bordersize="1" normalimage="file='res\ptz_slow.png' source='0,0,56,56'" hotimage="file='res\ptz_slow.png' source='57,0,112,56'" pushedimage="file='res\ptz_slow.png' source='113,0,169,56'"/>
+        <Button name="ptz_up" float="true" pos="76,10,132,66" bkcolor="#ff292d37" borderround="5,5" bordercolor="#ff1a1b1c"   bordersize="1"  normalimage="file='res\ptz_up.png' source='0,0,56,56'" hotimage="file='res\ptz_up.png' source='56,0,112,56'" pushedimage="file='res\ptz_up.png' source='113,0,169,56'" />
+        <Button name="ptz_fast" float="true" pos="142,10,198,66"  bkcolor="#ff292d37" borderround="5,5" bordercolor="#ff1a1b1c"   bordersize="1" normalimage="file='res\ptz_fast.png' source='0,0,56,56'" hotimage="file='res\ptz_fast.png' source='56,0,112,56'" pushedimage="file='res\ptz_fast.png' source='113,0,169,56'"/>
+        <Button name="ptz_left" float="true" pos="10,76,66,132"  bkcolor="#ff292d37" borderround="5,5" bordercolor="#ff1a1b1c"   bordersize="1" normalimage="file='res\ptz_left.png' source='0,0,56,56'" hotimage="file='res\ptz_left.png' source='57,0,112,56'" pushedimage="file='res\ptz_left.png' source='113,0,169,56'" />
+        <Button name="ptz_home" float="true" pos="76,76,132,132" bkcolor="#ff292d37" borderround="5,5" bordercolor="#ff1a1b1c"   bordersize="1" normalimage="file='res\ptz_home.png' source='0,0,56,56'" hotimage="file='res\ptz_home.png' source='57,0,112,56'" pushedimage="file='res\ptz_home.png' source='113,0,169,56'"/>
+        <Button name="ptz_right" float="true" pos="142,76,198,132" bkcolor="#ff292d37" borderround="5,5" bordercolor="#ff1a1b1c"   bordersize="1" normalimage="file='res\ptz_right.png' source='0,0,56,56'" hotimage="file='res\ptz_right.png' source='57,0,112,56'" pushedimage="file='res\ptz_right.png' source='113,0,169,56'"/>
+        <Button name="ptz_zoom_inc" float="true" pos="10,142,66,198" bkcolor="#ff292d37" borderround="5,5" bordercolor="#ff1a1b1c"   bordersize="1"  normalimage="file='res\ptz_zoom_inc.png' source='0,0,56,56'" hotimage="file='res\ptz_zoom_inc.png' source='57,0,112,56'" pushedimage="file='res\ptz_zoom_inc.png' source='113,0,169,56'"/>
+        <Button name="ptz_down" float="true" pos="76,142,132,198" bkcolor="#ff292d37" borderround="5,5" bordercolor="#ff1a1b1c"   bordersize="1"  normalimage="file='res\ptz_down.png' source='0,0,56,56'" hotimage="file='res\ptz_down.png' source='57,0,112,56'" pushedimage="file='res\ptz_down.png' source='113,0,169,56'"/>
+        <Button name="ptz_zoom_dec" float="true" pos="142,142,198,198" bkcolor="#ff292d37" borderround="5,5" bordercolor="#ff1a1b1c"   bordersize="1" normalimage="file='res\ptz_zoom_dec.png' source='0,0,56,56'" hotimage="file='res\ptz_zoom_dec.png' source='57,0,112,56'" pushedimage="file='res\ptz_zoom_dec.png' source='113,0,169,56'"/>
+      </Container>
+      <Button visible="false" float="true" pos="0,83,32,115" width="32"  bkimage="file='res\zoom.png' source='0,32,32,64'" hotimage="file='res\zoom.png' source='32,32,64,64'" bkcolor="" hotbkcolor="" />
+      <Button visible="false" float="true" pos="-33,83,-1,115" bkimage="file='res\zoom.png' source='0,0,32,32'" hotimage="file='res\zoom.png' source='32,0,64,32'" bkcolor="" hotbkcolor="" />
+    </HorizontalLayout>
+    <VerticalLayout inset="5,0,5,0">
+      <HorizontalLayout height="32" bkcolor="#ff292d37" borderround="5,5">
+        <Button name="ptz_focus_inc" width="32" bkimage="file='res\plus_minus.png' source='0,0,32,32'" hotimage="file='res\plus_minus.png' source='32,0,64,32'" bkcolor="" hotbkcolor="" />
+        <Label text="#focus" textcolor="#ffb1b2b4" align="center" />
+        <Button name="ptz_focus_dec" width="32" bkimage="file='res\plus_minus.png' source='0,32,32,64'" hotimage="file='res\plus_minus.png' source='32,32,64,64'" bkcolor="" hotbkcolor="" />
+      </HorizontalLayout>
+      <Control height="5"/>
+      <HorizontalLayout height="32" bkcolor="#ff292d37" borderround="5,5">
+        <Button name="ptz_iris_inc" width="32" bkimage="file='res\plus_minus.png' source='0,0,32,32'" hotimage="file='res\plus_minus.png' source='32,0,64,32'" bkcolor="" hotbkcolor="" />
+        <Label text="#diaphragm" textcolor="#ffb1b2b4" align="center" />
+        <Button name="ptz_iris_dec" width="32" bkimage="file='res\plus_minus.png' source='0,32,32,64'" hotimage="file='res\plus_minus.png' source='32,32,64,64'" bkcolor="" hotbkcolor="" />
+      </HorizontalLayout>
+    </VerticalLayout>
+  </VerticalLayout>
+</Window>

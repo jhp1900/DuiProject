@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>  
+<Window size="800,30">
+  <VerticalLayout height="30">
+    <Control height="1" bkcolor="#ffaaaaaa" />
+    <HorizontalLayout>
+      <HorizontalLayout width="23" inset="4,4,4,4">
+        <CheckBox name="elem_check" selectedimage="file='res\check_p.png' dest='0,2,15,17'" normalimage="file='res\check_h.png' dest='0,2,15,17'" />
+      </HorizontalLayout>
+      <Control width="1" bkimage="res\Headerctrl_Sperator.bmp" />
+      <HorizontalLayout inset="4,4,4,4">
+        <Label name="elem_id" text="id_text" textcolor="#ff222222" align="center" />
+      </HorizontalLayout>
+      <Control width="1" bkimage="res\Headerctrl_Sperator.bmp" />
+      <HorizontalLayout>
+        <Label name="elem_name" text="name_text" textcolor="#ff222222" align="center" />
+      </HorizontalLayout>
+      <Control width="1" bkimage="res\Headerctrl_Sperator.bmp" />
+      <HorizontalLayout>
+        <Label name="elem_sex" text="sex_text" textcolor="#ff222222" align="center" />
+      </HorizontalLayout>
+      <Control width="1" bkimage="res\Headerctrl_Sperator.bmp" />
+      <HorizontalLayout>
+        <Label name="elem_classes" text="classes_text" textcolor="#ff222222" align="center" />
+      </HorizontalLayout>
+      <Control width="1" bkimage="res\Headerctrl_Sperator.bmp" />
+      <HorizontalLayout>
+        <Label name="elem_room" text="room_text" textcolor="#ff222222" align="center" />
+      </HorizontalLayout>
+      <Control width="1" bkimage="res\Headerctrl_Sperator.bmp" />
+      <HorizontalLayout>
+        <Label name="elem_tel" text="tel_text" textcolor="#ff222222" align="center" />
+      </HorizontalLayout>
+      <Control width="1" bkimage="res\Headerctrl_Sperator.bmp" />
+      <HorizontalLayout>
+        <Control />
+        <Button name="edit_student" width="30" tooltip="编辑" normalimage="res\edit_user.png" hotimage="res\edit_user_hot.png" />
+        <Control width="20" />
+        <Button name="del_student" width="30" tooltip="删除" normalimage="res\del_user.png" hotimage="res\del_user_hot.png" />
+        <Control />
+      </HorizontalLayout>
+    </HorizontalLayout>
+    <Control height="1" bkcolor="#ffaaaaaa" />
+  </VerticalLayout>
+</Window>

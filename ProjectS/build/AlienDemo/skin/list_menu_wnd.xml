@@ -1,0 +1,17 @@
+
+<?xml version="1.0" encoding="utf-8"?>
+<Window size="136,82">
+	<VerticalLayout bkimage="file='res/menu_bk.png'" borderround="2,2">
+		<List header="hidden" inset="8,8,8,8" itemhotimage="file='res/menu_hot_bk.png'">
+			<ListContainerElement name="menu_Open" height="22" inset="40,0,0,0">
+				<Label text="打开" mouse="false"/>
+			</ListContainerElement>
+			<ListContainerElement name="menu_Mark" height="22" inset="40,0,0,0">
+				<Label text="标注" mouse="false"/>
+			</ListContainerElement>
+			<ListContainerElement name="menu_Delete" height="22" inset="40,0,0,0">
+				<Label text="删除" mouse="false"/>
+			</ListContainerElement>
+		</List>
+	</VerticalLayout>
+</Window>

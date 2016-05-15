@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<User flag="" name="" version="1.0">
+  <UserData id="2011101029" name="惠竞" sex="女" type="管理员" pwd="718811" />
+  <UserData id="2011101033" name="夏小桧" sex="女" type="老师" pwd="718811" subject="语文" />
+  <UserData id="2011101034" name="陈大胖" sex="女" type="学生" pwd="718811" class="2011-1" />
+  <UserData id="2011101043" name="文君兄" sex="女" type="学生" pwd="718811" class="2011-1" />
+  <UserData id="2011101051" name="贺同学" sex="男" type="学生" pwd="718811" class="2011-1" />
+</User>

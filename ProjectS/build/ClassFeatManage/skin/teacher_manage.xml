@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window size="800,500">
+  <Font name="Arial" size="14" bold="true" italic="false" default="true" />
+  <VerticalLayout bkcolor="#ffcccccc">
+    <List name="teacher_list" vscrollbar="true" itemhotimage="file='res\tree_hot.bmp' corner='2,1,2,1'" itemselectedimage="file='res\tree_select.bmp' corner='2,1,2,1'" itemalign="center" itembkcolor="#FFE2DDDF" itemaltbk="true" menu="true">
+      <ListHeader height="24" menu="true">
+        <ListHeaderItem inset="1,0,3,0" dragable="false" width="24" normalimage="res\headerctrl_normal.bmp" hotimage="res\headerctrl_hot.bmp" pushedimage="res\headerctrl_down.bmp" sepimage="res\Headerctrl_Sperator.bmp" sepwidth="2">
+          <VerticalLayout inset="3,3,3,3">
+            <CheckBox name="selall" tooltip="全选" endellipsis="true" selectedimage="file='res\check_p.png' dest='0,2,15,17'" normalimage="file='res\check_h.png' dest='0,2,15,17'" />
+          </VerticalLayout>
+        </ListHeaderItem>
+        <ListHeaderItem text="ID" dragable="false" font="3" normalimage="res\headerctrl_normal.bmp" hotimage="res\headerctrl_hot.bmp" pushedimage="res\headerctrl_down.bmp" sepimage="res\Headerctrl_Sperator.bmp" sepwidth="2"/>
+        <ListHeaderItem text="姓名" dragable="false" font="3" normalimage="res\headerctrl_normal.bmp" hotimage="res\headerctrl_hot.bmp" pushedimage="res\headerctrl_down.bmp" sepimage="res\Headerctrl_Sperator.bmp" sepwidth="2"/>
+        <ListHeaderItem text="院系" dragable="false" font="3" normalimage="res\headerctrl_normal.bmp" hotimage="res\headerctrl_hot.bmp" pushedimage="res\headerctrl_down.bmp" sepimage="res\Headerctrl_Sperator.bmp" sepwidth="2"/>
+        <ListHeaderItem text="学科" dragable="false" font="3" normalimage="res\headerctrl_normal.bmp" hotimage="res\headerctrl_hot.bmp" pushedimage="res\headerctrl_down.bmp" sepimage="res\Headerctrl_Sperator.bmp" sepwidth="2"/>
+        <ListHeaderItem name="control" text="操作" dragable="false" font="3" normalimage="res\headerctrl_normal.bmp" hotimage="res\headerctrl_hot.bmp" pushedimage="res\headerctrl_down.bmp" sepimage="res\Headerctrl_Sperator.bmp" sepwidth="2"/>
+      </ListHeader>
+    </List>	
+  </VerticalLayout>
+</Window>

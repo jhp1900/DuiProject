@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window size="250,350" caption="0,0,0,30">
+  <Font name="Arial" size="14" bold="true" italic="false" default="true" />
+  <VerticalLayout bkimage="file='res\bkimage.png' source='0,0,1920,1080'">
+    <HorizontalLayout height="30"  bkimage="file='res\title.png' source='4,1,230,50'">
+      <Control height="24" width="24" bkimage="file='res\LOGO.png'" padding="0,3,0,0" />
+      <Control width="10" />
+      <Text name="caption" text="学生课绩管理系统" textcolor="#ffb1b2b4" textpadding="2,6,0,0" />
+      <HorizontalLayout float="true" pos="-25,6,-7,22" >
+        <Button name="close_btn" tooltip="#close" width="16" height="16"  normalimage="file='res\min_close1.png' source='16,0,32,16'" hotimage="file='res\min_close1.png' source='16,16,32,32'" />
+      </HorizontalLayout>
+    </HorizontalLayout>
+    <VerticalLayout inset="0,0,0,15">
+      <Control />
+      <HorizontalLayout height="35" inset="20,0,20,0">
+        <Label text="用户名:" width="55" align="center" textcolor="#ffaaaaaa" />
+        <Edit name="user_name" height="32" align="center" textcolor="#ffaaaaaa" bkcolor="#ff141414" bordercolor="#ff414141" bordersize="1" nativebkcolor="#ff141414" />
+      </HorizontalLayout>
+      <Control height="15" />
+      <HorizontalLayout height="35" inset="20,0,20,0">
+        <Label text="ID:" width="55" align="center" textcolor="#ffaaaaaa" />
+        <Edit name="ID" height="32" align="center" textcolor="#ffaaaaaa" bkcolor="#ff141414" bordercolor="#ff414141" bordersize="1" nativebkcolor="#ff141414" />
+      </HorizontalLayout>
+      <Control height="15" />
+      <HorizontalLayout height="35" inset="20,0,20,0">
+        <Label text="密码:" width="55" align="center" textcolor="#ffaaaaaa" />
+        <Edit name="password" height="32" align="center" textcolor="#ffaaaaaa" bkcolor="#ff141414" bordercolor="#ff414141" bordersize="1" nativebkcolor="#ff141414" password="true" />
+      </HorizontalLayout>
+      <Control height="15" />
+      <HorizontalLayout height="20">
+        <Control />
+        <RadioBox name="" width="55" text="学生" textcolor="#ffdddddd" disabledtextcolor="#ff666666" textpadding="23,0,0,0" align="left" height="23" normalimage="file='res\radio.png' dest='5,5,18,18' source='0,0,13,13'" hotimage="file='res\radio.png' dest='5,5,18,18' source='0,13,13,26'" selectedimage="file='res\radio.png' dest='5,5,18,18' source='0,26,13,39'" group="key_signal_select" selected="true" />
+        <RadioBox name="" width="55" text="教师" textcolor="#ffdddddd" disabledtextcolor="#ff666666" textpadding="23,0,0,0" align="left" height="23" normalimage="file='res\radio.png' dest='5,5,18,18' source='0,0,13,13'" hotimage="file='res\radio.png' dest='5,5,18,18' source='0,13,13,26'" selectedimage="file='res\radio.png' dest='5,5,18,18' source='0,26,13,39'" group="key_signal_select" />
+        <RadioBox name="" width="67" text="管理员" textcolor="#ffdddddd" disabledtextcolor="#ff666666" textpadding="23,0,0,0" align="left" height="23" normalimage="file='res\radio.png' dest='5,5,18,18' source='0,0,13,13'" hotimage="file='res\radio.png' dest='5,5,18,18' source='0,13,13,26'" selectedimage="file='res\radio.png' dest='5,5,18,18' source='0,26,13,39'" group="key_signal_select" />
+        <Control />
+      </HorizontalLayout>
+      <Control />
+      <HorizontalLayout height="35" inset="20,0,20,0">
+        <Button name="login" text="#登录" textcolor="#dddddddd" borderround="5,5" normalimage="file='res\button.png' source='0,0,93,50'" hotimage="file='res\button.png' source='93,0,186,50'" />
+        <Control width="10" />
+        <Button name="cancel" text="#取消" textcolor="#dddddddd" borderround="5,5" normalimage="file='res\button.png' source='0,0,93,50'" hotimage="file='res\button.png' source='93,0,186,50'" />
+      </HorizontalLayout>
+    </VerticalLayout>
+  </VerticalLayout>
+</Window>
