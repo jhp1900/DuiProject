@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window size="1000,650" roundcorner="5,5" caption="0,0,0,35" sizebox="4,4,6,6" >
+	<Font name="宋体" size="20" />
+	<Font name="宋体" size="20" bold="true" />
+	<Font name="宋体" size="15" />
+	<Font name="宋体" size="15" bold="true" />
+	<Font name="宋体" size="12" />
+	<Font name="宋体" size="12" bold="true" />
+	<VerticalLayout >
+		<HorizontalLayout height="35" bkcolor="#FF1868c2" inset="5,0,5,0">	<!-- Title -->
+			<Button name="btn_home" bkimage="file='res\logo.png'" width="35"/>
+			<Label text="张力房屋中介公司" font="1" />
+			<Control />
+			<Button name="minbtn" width="30" bkimage="file='res\sys_min.png' source='0,44, 23,66'" hotimage="file='res\sys_min.png' source='0,22,23,44'" pushedimage="file='res\sys_min.png' source='0,0,23,22'"/> 
+			<Button name="maxbtn" width="30" bkimage="file='res\sys_max.png' source='0,44, 23,66'" hotimage="file='res\sys_max.png' source='0,22,23,44'" pushedimage="file='res\sys_max.png' source='0,0,23,22'" /> 
+			<Button name="restorebtn" width="30" bkimage="file='res\sys_regain.png' source='0,44, 23,66'" hotimage="file='res\sys_regain.png' source='0,22,23,44'" pushedimage="file='res\sys_regain.png' source='0,0,23,22'" visible="false" />
+			<Button name="closebtn" width="30" bkimage="file='res\sys_close.png' source='0,44, 23,66'" hotimage="file='res\sys_close.png' source='0,22,23,44'" pushedimage="file='res\sys_close.png' source='0,0,23,22'" />
+		</HorizontalLayout>
+    <HorizontalLayout name="manager_layout" >
+      <Container name="log_container" >
+				<Panel name="log_wnd" id="0" />
+			</Container>
+      <Container name="home_container" visible="false">
+				<Panel name="home_wnd" id="1" />
+			</Container>
+		</HorizontalLayout>
+	</VerticalLayout>
+</Window>

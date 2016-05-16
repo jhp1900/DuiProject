@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window size="800,500" mininfo="500,400" caption="0,0,0,30">
+  <Font name="Arial" size="14" bold="true" italic="false" default="true" />
+  <VerticalLayout bkcolor="#ffdddddd">
+    <HorizontalLayout height="45">
+      <Option name="opt_teacher" text="教师管理" group="admin" bkcolor="#ffaaaaaa" selectedbkcolor="#ffdddddd" selected="true" />
+      <Control width="1" bkcolor="#ffdddddd" />
+      <Option name="opt_student" text="学生管理" group="admin" bkcolor="#ffaaaaaa" selectedbkcolor="#ffdddddd" />
+      <Control width="1" bkcolor="#ffdddddd" />
+      <Option name="opt_subject" text="院系及课程管理" group="admin" bkcolor="#ffaaaaaa" selectedbkcolor="#ffdddddd" />
+    </HorizontalLayout>
+    <TabLayout name="tab_layout" inset="10,10,10,10" selectedid="0">
+      <ChildLayout xmlfile="teacher_manage.xml" />
+      <ChildLayout xmlfile="student_manage.xml" />
+      <ChildLayout xmlfile="subject_manage.xml" />
+    </TabLayout>
+  </VerticalLayout>
+</Window>

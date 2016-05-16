@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<User flag="" name="" version="1.0">
+	<UserData id="2012101229" name="吴雨峰" sex="男" type="管理员" pwd="123456" />
+	<UserData id="2012000001" name="黄进" sex="男" type="教师" pwd="123456" college="通信工程" subject="C语言" />
+	<UserData id="2012000002" name="曹华孝" sex="女" type="教师" pwd="123456" college="通信工程" subject="计算机网络" />
+	<UserData id="2012101232" name="彭明亮" sex="男" type="学生" pwd="123456" college="通信工程" classes="2012-移动-1" room="3422" tel="110" />
+	<UserData id="2012101206" name="周建" sex="男" type="学生" pwd="123456" college="通信工程" classes="2012-移动-1" room="9419" tel="110" />
+	<UserData id="2012101220" name="吴晓霞" sex="女" type="学生" pwd="123456" college="通信工程" classes="2012-移动-1" room="2437" tel="15982017130" />
+	<UserData id="2012101205" name="赵强" sex="男" type="学生" pwd="123456" college="通信工程" classes="2012-移动-1" room="2437" tel="15982017130" />
+	<UserData id="2012101208" name="陈永林" sex="男" type="学生" pwd="123456" college="通信工程" classes="2012-移动-1" room="2437" tel="15982017130" />
+	<UserData id="2012000003" name="倪磊" sex="女" type="教师" pwd="123456" college="通信工程" subject="模电" />
+	<UserData id="2012000004" name="向军" sex="男" type="教师" pwd="123456" college="通信工程" subject="数电" />
+	<UserData id="2012000005" name="向军" sex="男" type="教师" pwd="123456" college="通信工程" subject="高等数学" />
+</User>

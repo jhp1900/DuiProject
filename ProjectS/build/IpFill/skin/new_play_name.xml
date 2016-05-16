@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window size="220,150" caption="0,0,0,30">
+  <Font name="微软雅黑" size="16" bold="true" italic="false" />
+  <Font name="微软雅黑" size="12" bold="false" italic="false" default="true" />
+  <VerticalLayout bkcolor="#ff29b8cc" inset="2,2,2,2">
+    <HorizontalLayout height="28" inset="0,0,0,2">
+      <Label text="新方案名" font="0" align="center" />
+      <Button name="closebtn" width="26" text="x" font="0" hotbkcolor="#ffcc0000" />
+    </HorizontalLayout>
+    <Container bkcolor="#fffffff0" inset="20,20,20,20">
+      <VerticalLayout bkcolor="#ffeaeaea" inset="10,10,10,10">
+        <Edit name="name_edit" align="center" bordercolor="#ffaaaaaa" bordersize="1" />
+        <Control height="10" />
+        <HorizontalLayout height="25">
+          <Button name="OK_btn" text="确定" hottextcolor="#ffff0000" pushedtextcolor="#ff000000" bkcolor="#ffe1e1e1" bordercolor="#ffaaaaaa" bordersize="1" />
+          <Control width="10" />
+          <Button name="cancel_btn" text="取消" hottextcolor="#ffff0000" pushedtextcolor="#ff000000" bkcolor="#ffe1e1e1" bordercolor="#ffaaaaaa" bordersize="1" />
+        </HorizontalLayout>
+      </VerticalLayout>
+    </Container>
+  </VerticalLayout>
+</Window>

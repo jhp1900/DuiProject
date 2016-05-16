@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window size="300,200" mininfo="250,200" maxinfo="350,260" roundcorner="5,5" caption="0,0,0,35" sizebox="4,4,6,6">
+  <Font name="宋体" size="20" />
+  <Font name="宋体" size="20" bold="true" />
+  <Font name="宋体" size="15" />
+  <Font name="宋体" size="15" bold="true" />
+  <Font name="宋体" size="12" />
+  <Font name="宋体" size="12" bold="true" defult="true"/>
+  <VerticalLayout name="login_layout" bkcolor="#FF1868c2" bkcolor2="#FF06b1ab" bkcolor3="#FF1868c2" inset="5,5,5,5" >
+    <HorizontalLayout height="30" inset="0,5,5,5">
+      <Control />
+      <Button name="closebtn" width="20" normalimage="file='res\min_close.png' source='16,0, 32,16'" hotimage="file='res\min_close.png' source='16,16,32,32'" />
+    </HorizontalLayout>
+    <HorizontalLayout height="30">
+      <Control />
+      <Text height="20" font="3" align="center" text="添加一个新的记忆对象" />
+      <Control />
+    </HorizontalLayout>
+    <VerticalLayout childpadding="5">
+      <Control />
+      <HorizontalLayout height="30" inset="0,3,0,3">
+        <Control />
+        <Label width="50" font="4" align="center" text="主人公：" />
+        <Edit name="owner" width="120" />
+        <Control />
+      </HorizontalLayout>
+      <HorizontalLayout height="30" inset="0,3,0,3">
+        <Control />
+        <Label width="50" font="4" align="center" text="类型：" />
+        <Container width="120">
+          <ComboBox name="type" textpadding="10,0,0,0" bkcolor="#dddddddd" bordercolor="#44444444" bordersize="1">
+            <ListLabelElement text="person" align="cente" selected="true" />
+            <ListLabelElement text="anniversary" align="cente" />
+          </ComboBox>
+          <Label mouse="false" float="true" pos="-25,0,-24,30" bordercolor="#44444444" bordersize="1"/>
+          <Control mouse="false" float="true" pos="-16,9,-5,20" bkimage="file='res\triangle.png'" />
+        </Container>
+        <Control />
+      </HorizontalLayout>
+      <Control height="10" />
+      <HorizontalLayout height="30">
+        <Control />
+        <Button name="add_btn" text="添加" borderround="3,3" bordersize="1" bordercolor="#12345678"/>
+        <Control width="10" />
+        <Button name="cancel_btn" text="取消" borderround="3,3" bordersize="1" bordercolor="#12345678"/>
+        <Control />
+      </HorizontalLayout>
+      <Control />
+    </VerticalLayout>
+  </VerticalLayout>
+</Window>

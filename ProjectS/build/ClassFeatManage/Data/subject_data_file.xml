@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<SubData flag="" name="" version="1.0">
+  <College name="通信工程">
+    <Subject>
+      <Sub name="高等数学" />
+      <Sub name="复变" />
+      <Sub name="大学物理" />
+      <Sub name="C语言" />
+      <Sub name="电路分析" />
+      <Sub name="数电" />
+      <Sub name="模电" />
+      <Sub name="高频" />
+      <Sub name="计算机网络" />
+    </Subject>
+    <Classes>
+      <Clas name="通信一班">
+        <Sub name="" />
+        <Sub name="" />
+        <Sub name="" />
+      </Clas>
+      <Clas name="通信二班">
+        <Sub name="" />
+        <Sub name="" />
+        <Sub name="" />
+      </Clas>
+    </Classes>
+  </College>
+  <College name="电子工程">
+  </College>
+  <College name="计算机">
+  </College>
+  <College name="经管">
+  </College>
+  <College name="人文">
+  </College>
+  <College name="艺术">
+  </College>
+  <College name="舞蹈">
+  </College>
+</SubData>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window size="500,335" caption="0,0,0,24">
+  <Font name="宋体" size="20" />
+  <Font name="宋体" size="20" bold="true" />
+  <Font name="宋体" size="15" />
+  <Font name="宋体" size="15" bold="true" />
+  <Font name="宋体" size="12" />
+  <Font name="宋体" size="12" bold="true" defult="true"/>
+  <VerticalLayout bkcolor="#ff29b8cc" bordercolor="#ff29b8cc" bordersize="1" inset="2,0,2,2">
+    <HorizontalLayout height="24" inset="0,2,5,2">
+      <Control />
+      <Button name="closebtn" width="20" normalimage="file='res\min_close.png' source='16,0, 32,16'" hotimage="file='res\min_close.png' source='16,16,32,32'" />
+    </HorizontalLayout>
+    <VerticalLayout bkcolor="#FFffffff" inset="10,10,10,10" childpadding="10">
+      <HorizontalLayout height="26">
+        <Label width="60" text="卡片类型:" />
+        <Container height="26" width="120">
+          <ComboBox name="type" textpadding="10,0,0,0" bkcolor="#dddddddd" bordercolor="#44444444" bordersize="1">
+            <ListLabelElement text="Picture" align="cente" selected="true" />
+            <ListLabelElement text="Video" align="cente" />
+            <ListLabelElement text="BGM" align="cente" />
+            <ListLabelElement text="Text" align="cente" />
+          </ComboBox>
+          <Label mouse="false" float="true" pos="-25,0,-24,30" bordercolor="#44444444" bordersize="1"/>
+          <Control mouse="false" float="true" pos="-16,9,-5,20" bkimage="file='res\triangle.png'" />
+        </Container>
+        <Control />
+        <Label width="35" text="时间:" />
+        <DateTime name="card_time" height="26" width="100" textpadding="15,0,0,0" bkcolor="#dddddddd" bordercolor="#44444444" bordersize="1"/>
+      </HorizontalLayout>
+      <HorizontalLayout height="200">
+        <TileLayout name="res_layout" width="316" columns="3" vscrollbar="true" bkimage="res\res_card_bkimage.png" childpadding="2" inset="2,2,2,2">
+        </TileLayout>
+        <Control width="7" />
+        <RichEdit name="" vscrollbar="true" autovscroll="true" inset="5,5,5,5" bkcolor="#dddddddd" bordercolor="#44444444" bordersize="1"/>
+      </HorizontalLayout>
+      <Control height="2" bkcolor="#ff29b8cc" />
+      <HorizontalLayout height="30">
+        <Control />
+        <Button name="cancel_btn" text="取消" borderround="3,3" bordersize="1" bordercolor="#12345678"/>
+        <Control width="10" />
+        <Button name="add_btn" text="添加" borderround="3,3" bordersize="1" bordercolor="#12345678"/>
+        <Control />
+      </HorizontalLayout>
+    </VerticalLayout>
+  </VerticalLayout>
+</Window>

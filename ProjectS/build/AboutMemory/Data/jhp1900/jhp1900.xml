@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<Data name="jhp1900" version="1.0">
+	<UserName value="jhp1900" />
+	<Password value="718811" />
+	<HandImg value="" />
+	<Memory count="0">
+		<MemoryObject count="0" id="" owner="xjh" type="person">
+			<MemoryCard count="0" id="" time="20150716" path="20150716">
+				<Resources type="pictrue" path="d:" />
+			</MemoryCard>
+		</MemoryObject>
+		<MemoryObject count="0" id="" owner="xmm" type="anniversary">
+			<MemoryCard count="0" id="" time="20150716" type="20150716" path="20150716">
+				<Resources count="0" id="" type="pictrue" path="d:" />
+			</MemoryCard>
+		</MemoryObject>
+	</Memory>
+</Data>

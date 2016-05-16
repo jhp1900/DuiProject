@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window >
+	<Font name="宋体" size="20" />
+	<Font name="宋体" size="20" bold="true" />
+	<Font name="宋体" size="15" />
+	<Font name="宋体" size="15" bold="true" />
+	<Font name="宋体" size="12" />
+	<Font name="宋体" size="12" bold="true" defult="true"/>
+	<VerticalLayout >
+		<HorizontalLayout name="home_area" bkcolor="#FF1868c2" bkcolor2="#FF06b1ab" bkcolor3="#FF1868c2" inset="10,5,10,10">
+			<List name="memory_object_list" bkcolor="#FFFFFFFF" inset="5,5,5,5" vscrollbar="true" itemfont="2" itemalign="center" itembkcolor="#FFE2DDDF" itemaltbk="true" headerbkimage="file='res\list_header_bg.png'">
+				<ListHeader height="27" menu="true" >
+					<ListHeaderItem name="name" text="MemoryList" font="3" hotimage="file='res\list_header_hot.png'" pushedimage="file='res\list_header_pushed.png'" sepimage="file='res\list_header_sep.png'" sepwidth="1"/>
+          <ListHeaderItem name="operate" text="操作" width="35" font="3" hotimage="file='res\list_header_hot.png'" pushedimage="file='res\list_header_pushed.png'" sepimage="file='res\list_header_sep.png'" sepwidth="1"/>
+        </ListHeader>
+			</List>
+			<VerticalLayout width="75" inset="10,0,0,0" childpadding="15">
+				<Control />
+				<Button name="btn_add" text="添加记忆" height="30" bkimage="res\main_unselected.png" hotimage="res\main_hotsel.png" pushedimage="res\main_selected.png"/>
+				<Button name="btn_edit" text="修改信息" height="30" bkimage="res\main_unselected.png" hotimage="res\main_hotsel.png" pushedimage="res\main_selected.png"/>
+				<Button name="btn_del" text="删除信息" height="30" bkimage="res\main_unselected.png" hotimage="res\main_hotsel.png" pushedimage="res\main_selected.png"/>
+				<Button name="btn_savour" text="回 味" height="30" bkimage="res\main_unselected.png" hotimage="res\main_hotsel.png" pushedimage="res\main_selected.png"/>
+				<Button name="btn_test" text="Test" height="30" bkimage="res\main_unselected.png" hotimage="res\main_hotsel.png" pushedimage="res\main_selected.png"/>
+        <Control />
+			</VerticalLayout>
+		</HorizontalLayout>
+	</VerticalLayout>
+</Window>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window size="320,465" caption="0,0,0,30">
+  <Font name="微软雅黑" size="20" bold="true" italic="false" />
+  <Font name="微软雅黑" size="12" bold="false" italic="false" default="true" />
+  <VerticalLayout bkcolor="#ff29b8cc" inset="2,2,2,2">
+    <HorizontalLayout height="28" inset="0,0,0,2">
+      <Label width="26" bkimage="res\Logo.png"/>
+      <Control width="5" />
+      <Label text="IpFill" />
+      <Button name="minbtn" width="26" text="-" font="0" textpadding="0,8,0,0" hotbkcolor="#ffcc0000" />
+      <Button name="closebtn" width="26" text="x" font="0" hotbkcolor="#ffcc0000" />
+    </HorizontalLayout>
+    <VerticalLayout bkcolor="#fff0f0f0" inset="10,20,10,20">
+      <VerticalLayout height="60" inset="0,10,0,0">
+        <HorizontalLayout height="50" bordercolor="#ffaaaaaa" bordersize="1" inset="20,15,20,15">
+          <Label width="30" text="方案" />
+          <Control width="10" />
+          <Container>
+            <Combo name="play_list" itemtextpadding="10,0,10,0" bordercolor="#ffcccccc" bordersize="1">
+              <ListLabelElement text="自动获取" selected="true" />
+            </Combo>
+            <Label float="true" pos="-30,0,-29,30" bkcolor="#ffcccccc" />
+            <Label float="true" pos="-19,0,-8,18" text="v" />
+          </Container>
+          <Control width="10" />
+          <Button name="start_play_btn" width="45" text="启用" hottextcolor="#ffff0000" pushedtextcolor="#ff000000" bkcolor="#ffe1e1e1" bordercolor="#ffaaaaaa" bordersize="1" />
+        </HorizontalLayout>
+        <Label width="65" text="方案选择" align="center" float="true" pos="5,0,0,20" bkcolor="#fff0f0f0" />
+      </VerticalLayout>
+      <Control height="10" />
+      <VerticalLayout inset="0,10,0,0">
+        <VerticalLayout bordercolor="#ffaaaaaa" bordersize="1" inset="20,15,20,10">
+          <CheckBox name="" width="70" text="自动获取IP"  />
+          <HorizontalLayout height="30" inset="20,2,0,2">
+            <Label width="60" text="IP地址" />
+            <IpControl name="ip_address" />
+          </HorizontalLayout>
+          <HorizontalLayout height="30" inset="20,2,0,2">
+            <Label width="60" text="子网掩码" />
+            <IpControl name="netmask" />
+          </HorizontalLayout>
+          <HorizontalLayout height="30" inset="20,2,0,2">
+            <Label width="60" text="默认网关" />
+            <IpControl name="gateway" />
+          </HorizontalLayout>
+          <Control height="10" />
+          <CheckBox name="" width="87" text="自动获取DNS" />
+          <HorizontalLayout height="30" inset="20,2,0,2">
+            <Label width="60" text="首选DNS" />
+            <IpControl name="firstDNS" />
+          </HorizontalLayout>
+          <HorizontalLayout height="30" inset="20,2,0,2">
+            <Label width="60" text="备选DNS" />
+            <IpControl name="secondDNS" />
+          </HorizontalLayout>
+          <Control />
+          <HorizontalLayout height="20">
+            <Button name="test_btn" width="45" text="测试" hottextcolor="#ffff0000" pushedtextcolor="#ff000000" bkcolor="#ffe1e1e1" bordercolor="#ffaaaaaa" bordersize="1" />
+            <Control />
+            <Button name="advanced_btn" width="45" text="高级" textcolor="#ff0000ff" hottextcolor="#ffff0000" pushedtextcolor="#ff000000" bkcolor="#ffe1e1e1" bordercolor="#ffaaaaaa" bordersize="1" />
+          </HorizontalLayout>
+        </VerticalLayout>
+        <Label width="65" text="网络属性" align="center" float="true" pos="5,0,0,20" bkcolor="#fff0f0f0" />
+      </VerticalLayout>
+      <Control height="10" />
+      <HorizontalLayout height="25" inset="10,0,10,0">
+        <Button name="update_play_btn" text="修改" hottextcolor="#ffff0000" pushedtextcolor="#ff000000" bkcolor="#ffe1e1e1" bordercolor="#ffaaaaaa" bordersize="1" />
+        <Control width="10" />
+        <Button name="del_play_btn" text="删除" hottextcolor="#ffff0000" pushedtextcolor="#ff000000" bkcolor="#ffe1e1e1" bordercolor="#ffaaaaaa" bordersize="1" />
+        <Control width="10" />
+        <Button name="add_play_btn" text="存为新方案" hottextcolor="#ffff0000" pushedtextcolor="#ff000000" bkcolor="#ffe1e1e1" bordercolor="#ffaaaaaa" bordersize="1" />
+      </HorizontalLayout>
+    </VerticalLayout>
+  </VerticalLayout>
+</Window>
