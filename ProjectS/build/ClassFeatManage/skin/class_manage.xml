@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Window size="800,500" mininfo="500,400" caption="0,0,0,30">
-  <Font name="Arial" size="14" bold="true" italic="false" default="true" />
-  <VerticalLayout bkcolor="#ffaaaaaa">
-    <Label text="Class" />
-  </VerticalLayout>
-</Window>
