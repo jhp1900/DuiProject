@@ -164,10 +164,15 @@ void Manager::StartPlay()
   PDUI_COMBO play_list = static_cast<PDUI_COMBO>(m_PaintManager.FindControl(_T("play_list")));
   NodeStruct node_info = xml_manager_.GetNodeInfo(play_list->GetText());
 
-  CDuiString ip_line = _T("/c netsh interface ip set address \"ÒÔÌ«Íø\" ");
-  CDuiString dns_line = _T("/c netsh interface ip set dnsservers \"ÒÔÌ«Íø\" ");
+  CDuiString set_ip_line = _T("/c netsh interface ip set address \"ÒÔÌ«Íø\" static");
+  CDuiString set_dns_line = _T("/c netsh interface ip set dnsservers \"ÒÔÌ«Íø\" static");
 
-  ExcuteCommand(_T("/c calc.exe"));
+  for (int i = 0; i != 3; ++i) {
+    set_ip_line += _T(" ");
+    set_ip_line += xml_manager_.MultiToWide(node_info.attrs[i].second);
+  }
+    
+  ExcuteCommand(set_ip_line);
 }
 
 void Manager::ExcuteCommand(LPCTSTR command_lien)
