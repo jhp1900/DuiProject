@@ -1,4 +1,4 @@
-﻿生成启动时间为 16-5-16 9:30:14。
+﻿生成启动时间为 16-5-17 16:43:37。
      1>项目“E:\Code\MyProject\DuiProject\ProjectS\IpFill\IpFill.vcxproj”在节点 2 上(Build 个目标)。
      1>ClCompile:
          D:\Program\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _USE_DUILIB_LIB /D _WINDLL /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"..\build\IpFill\obj\IpFill\\" /Fd"..\build\IpFill\obj\IpFill\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt manager.cpp
@@ -16,12 +16,11 @@
      1>已完成生成项目“E:\Code\MyProject\DuiProject\ProjectS\IpFill\IpFill.vcxproj”(Build 个目标)的操作。
 
 项目性能摘要:
-     1878 毫秒 E:\Code\MyProject\DuiProject\ProjectS\IpFill\IpFill.vcxproj   1 次调用
-               1878 毫秒 Build                                      1 次调用
+     6711 毫秒 E:\Code\MyProject\DuiProject\ProjectS\IpFill\IpFill.vcxproj   1 次调用
+               6711 毫秒 Build                                      1 次调用
 
 目标性能摘要:
         0 毫秒 InitializeBuildStatus                      1 次调用
-        0 毫秒 MakeDirsForCl                              1 次调用
         0 毫秒 AfterBuildGenerateSources                  1 次调用
         0 毫秒 ComputeCLCompileGeneratedXDCFiles          1 次调用
         0 毫秒 ComputeManifestGeneratedLinkerInputs       1 次调用
@@ -31,19 +30,19 @@
         0 毫秒 _CheckForCompileOutputs                    1 次调用
         0 毫秒 GetResolvedWinMD                           1 次调用
         0 毫秒 _Manifest                                  1 次调用
+        0 毫秒 MakeDirsForCl                              1 次调用
         0 毫秒 _SelectedFiles                             1 次调用
-        0 毫秒 PostBuildEvent                             1 次调用
         0 毫秒 _Midl                                      1 次调用
         0 毫秒 SelectCustomBuild                          1 次调用
         0 毫秒 _ClCompile                                 1 次调用
         0 毫秒 FixupCLCompileOptions                      1 次调用
         0 毫秒 GetReferenceAssemblyPaths                  1 次调用
         0 毫秒 CreateCustomManifestResourceNames          1 次调用
-        0 毫秒 SetBuildDefaultEnvironmentVariables        1 次调用
         0 毫秒 ResolveAssemblyReferences                  1 次调用
         0 毫秒 BeforeLink                                 1 次调用
-        0 毫秒 BuildCompileTraverse                       1 次调用
         0 毫秒 ComputeCLInputPDBName                      1 次调用
+        0 毫秒 PostBuildEvent                             1 次调用
+        0 毫秒 BuildCompileTraverse                       1 次调用
         0 毫秒 ExpandSDKReferences                        1 次调用
         0 毫秒 CopyFilesToOutputDirectory                 1 次调用
         0 毫秒 BuildGenerateSources                       1 次调用
@@ -67,9 +66,10 @@
         0 毫秒 ComputeRCOutputs                           1 次调用
         0 毫秒 _XdcMake                                   1 次调用
         0 毫秒 CreateSatelliteAssemblies                  1 次调用
-        0 毫秒 SetCABuildNativeEnvironmentVariables       1 次调用
         0 毫秒 AfterBuildCompileEvent                     1 次调用
+        0 毫秒 GetCopyToOutputDirectoryItems              1 次调用
         0 毫秒 AfterBuild                                 1 次调用
+        0 毫秒 BeforeResourceCompile                      1 次调用
         0 毫秒 _BuildLinkAction                           1 次调用
         0 毫秒 BeforeResolveReferences                    1 次调用
         0 毫秒 DoLinkOutputFilesMatch                     1 次调用
@@ -79,50 +79,50 @@
         0 毫秒 MakeDirsForMidl                            1 次调用
         0 毫秒 _BscMake                                   1 次调用
         0 毫秒 _Appverifier                               1 次调用
+        0 毫秒 ComputeCLOutputs                           1 次调用
         0 毫秒 RegisterOutput                             1 次调用
-        0 毫秒 _BuildGenerateSourcesAction                1 次调用
         0 毫秒 BuildLink                                  1 次调用
         0 毫秒 ComputeCLCompileGeneratedSbrFiles          1 次调用
         0 毫秒 ResolveSDKReferences                       1 次调用
         0 毫秒 _ALink                                     1 次调用
         0 毫秒 ComputeCLGeneratedLinkInputs               1 次调用
-        0 毫秒 ResolveProjectReferences                   1 次调用
         0 毫秒 _SplitProjectReferencesByFileExistence     1 次调用
         0 毫秒 BuildGenerateSourcesTraverse               1 次调用
         0 毫秒 AssignTargetPaths                          1 次调用
         0 毫秒 ComputeLegacyManifestEmbedding             1 次调用
-        0 毫秒 _CheckForInvalidConfigurationAndPlatform   1 次调用
+        0 毫秒 _BuildGenerateSourcesAction                1 次调用
+        0 毫秒 BeforeClCompile                            1 次调用
         0 毫秒 AfterResolveReferences                     1 次调用
-        0 毫秒 GetCopyToOutputDirectoryItems              1 次调用
-        0 毫秒 ComputeCLOutputs                           1 次调用
-        0 毫秒 AfterBuildGenerateSourcesEvent             1 次调用
-        0 毫秒 BeforeResourceCompile                      1 次调用
+        0 毫秒 PrepareResourceNames                       1 次调用
         0 毫秒 AfterMidl                                  1 次调用
         0 毫秒 PreLinkEvent                               1 次调用
         0 毫秒 _Deploy                                    1 次调用
-        0 毫秒 _PrepareForReferenceResolution             1 次调用
         0 毫秒 MakeDirsForLink                            1 次调用
-        0 毫秒 PrepareForBuild                            1 次调用
         0 毫秒 BeforeBuildGenerateSources                 1 次调用
         0 毫秒 AfterClCompile                             1 次调用
-        0 毫秒 ResolvedXDCMake                            1 次调用
-        0 毫秒 BeforeClCompile                            1 次调用
-        0 毫秒 ComputeMIDLGeneratedCompileInputs          1 次调用
+        0 毫秒 AfterBuildGenerateSourcesEvent             1 次调用
+        0 毫秒 PlatformPrepareForBuild                    1 次调用
         0 毫秒 MakeDirsForXdcMake                         1 次调用
-        0 毫秒 GetInstalledSDKLocations                   1 次调用
+        0 毫秒 ResolvedXDCMake                            1 次调用
+        0 毫秒 ComputeMIDLGeneratedCompileInputs          1 次调用
+        0 毫秒 AfterLink                                  1 次调用
+        0 毫秒 SplitResourcesByCulture                    1 次调用
         0 毫秒 _BuildCompileAction                        1 次调用
-        0 毫秒 AssignProjectConfiguration                 1 次调用
+        0 毫秒 GetInstalledSDKLocations                   1 次调用
         0 毫秒 BuildCompile                               1 次调用
         0 毫秒 ComputeRCGeneratedLinkInputs               1 次调用
-        0 毫秒 SplitResourcesByCulture                    1 次调用
-        0 毫秒 AfterLink                                  1 次调用
-        0 毫秒 PrepareResourceNames                       1 次调用
-        0 毫秒 PlatformPrepareForBuild                    1 次调用
+        1 毫秒 _PrepareForReferenceResolution             1 次调用
+        1 毫秒 _PrepareForBuild                           1 次调用
+        1 毫秒 ResolveProjectReferences                   1 次调用
+        2 毫秒 AssignProjectConfiguration                 1 次调用
+        9 毫秒 SetBuildDefaultEnvironmentVariables        1 次调用
        16 毫秒 WarnCompileDuplicatedFilename              1 次调用
-       16 毫秒 _PrepareForBuild                           1 次调用
-      628 毫秒 Link                                       1 次调用
-     1219 毫秒 ClCompile                                  1 次调用
+       16 毫秒 PrepareForBuild                            1 次调用
+       55 毫秒 _CheckForInvalidConfigurationAndPlatform   1 次调用
+      717 毫秒 SetCABuildNativeEnvironmentVariables       1 次调用
+     1718 毫秒 Link                                       1 次调用
+     4176 毫秒 ClCompile                                  1 次调用
 
 已成功生成。
 
-已用时间 00:00:01.84
+已用时间 00:00:06.72

@@ -1,6 +1,24 @@
 <?xml version="1.0"?>
 <Info>
-	<Play name="" />
-	<Play name="" />
-	<Play name="" />
+	<Play name="111">
+		<Attribute ip_address="1.1.1.1" />
+		<Attribute netmask="1.1.1.1" />
+		<Attribute gateway="1.1.1.1" />
+		<Attribute firstDNS="1.1.1.1" />
+		<Attribute secondDNS="1.1.1.1" />
+	</Play>
+	<Play name="222">
+		<Attribute ip_address="2.2.2.2" />
+		<Attribute netmask="2.2.2.2" />
+		<Attribute gateway="2.2.2.2" />
+		<Attribute firstDNS="2.2.2.2" />
+		<Attribute secondDNS="2.2.2.2" />
+	</Play>
+	<Play name="333">
+		<Attribute ip_address="3.3.3.3" />
+		<Attribute netmask="3.3.3.3" />
+		<Attribute gateway="3.3.3.3" />
+		<Attribute firstDNS="3.3.3.3" />
+		<Attribute secondDNS="3.3.3.3" />
+	</Play>
 </Info>

@@ -17,7 +17,7 @@
           <Control width="10" />
           <Container>
             <Combo name="play_list" itemtextpadding="10,0,10,0" bordercolor="#ffcccccc" bordersize="1">
-              <ListLabelElement text="自动获取" selected="true" />
+              <ListLabelElement text="Auto" selected="true" />
             </Combo>
             <Label float="true" pos="-30,0,-29,30" bkcolor="#ffcccccc" />
             <Label float="true" pos="-19,0,-8,18" text="v" />
@@ -30,7 +30,7 @@
       <Control height="10" />
       <VerticalLayout inset="0,10,0,0">
         <VerticalLayout bordercolor="#ffaaaaaa" bordersize="1" inset="20,15,20,10">
-          <CheckBox name="" width="70" text="自动获取IP"  />
+          <Label width="70" text="IP信息" />
           <HorizontalLayout height="30" inset="20,2,0,2">
             <Label width="60" text="IP地址" />
             <IpControl name="ip_address" />
@@ -43,8 +43,8 @@
             <Label width="60" text="默认网关" />
             <IpControl name="gateway" />
           </HorizontalLayout>
-          <Control height="10" />
-          <CheckBox name="" width="87" text="自动获取DNS" />
+          <Control height="15" />
+          <Label width="87" text="DNS信息" />
           <HorizontalLayout height="30" inset="20,2,0,2">
             <Label width="60" text="首选DNS" />
             <IpControl name="firstDNS" />

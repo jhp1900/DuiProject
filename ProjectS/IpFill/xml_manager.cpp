@@ -54,9 +54,9 @@ NodeStruct XmlManager::GetNodeInfo(LPCTSTR node_name)
 {
   NodeStruct node_info;
   pugi::xml_node node = file_.child("Info");
+  char temp_char[MAX_PATH] = { 0 };
   for (auto pa_node : node) {
     string play_name = pa_node.attribute("name").as_string();
-    char *temp_char = new char();
     if (0 == play_name.compare(WideToMulti(node_name, temp_char))) {
       node_info.node_name = play_name;
       for (auto son_node : pa_node.children()) {
@@ -64,7 +64,6 @@ NodeStruct XmlManager::GetNodeInfo(LPCTSTR node_name)
         node_info.attrs.push_back({ attr.name(), attr.as_string() });
       }
     }
-    delete temp_char;
   }
   return node_info;
 }
@@ -74,9 +73,9 @@ vector<NodeStruct> XmlManager::GetAllNode()
   return vector<NodeStruct>();
 }
 
-vector<LPCTSTR> XmlManager::GetAllNodeName()
+vector<CDuiString> XmlManager::GetAllNodeName()
 {
-  vector<LPCTSTR> ret;
+  vector<CDuiString> ret;
   for (auto node : file_.child("Info")) {
     ret.push_back(MultiToWide(node.attribute("name").as_string()));
   }

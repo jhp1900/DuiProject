@@ -20,7 +20,7 @@ public:
   void InsertNode(NodeStruct node_info);
   NodeStruct GetNodeInfo(LPCTSTR node_name);
   vector<NodeStruct> GetAllNode();
-  vector<LPCTSTR> GetAllNodeName();
+  vector<CDuiString> GetAllNodeName();
 
 public:
   char * WideToMulti(CDuiString wide, char * multi);    // ¿í×Ö·û×ª¶à×Ö½Ú

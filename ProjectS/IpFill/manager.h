@@ -25,6 +25,7 @@ public:
   virtual CDuiString GetSkinFolder() override { return _T("skin"); }
   virtual CDuiString GetSkinFile() override { return _T("manager.xml"); }
   virtual LPCTSTR GetWindowClassName(void) const override { return _T("Manager"); }
+  virtual void Notify(TNotifyUI& msg) override;
   
 private:
 	virtual LRESULT OnInit() override;
@@ -35,6 +36,10 @@ private:
   LRESULT OnLogCloseMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandled);
   void OnClickAddPlayBtn();
   BOOL GetPlayInfo(NodeStruct &node_info);
+  void FlushPlayList();
+  void OnSelectPlay(TNotifyUI &msg);
+  void StartPlay();
+  void ExcuteCommand(LPCTSTR command_lien);
 
 private:
   static Manager *instance_;    // 单例模式的实例

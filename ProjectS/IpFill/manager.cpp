@@ -1,5 +1,6 @@
 #include "manager.h"
 #include "add_new_play_wnd.h"
+#include <shellapi.h>
 
 Manager* Manager::instance_ = nullptr;
 
@@ -21,16 +22,19 @@ void Manager::DestroyInstance()
   }
 }
 
+void Manager::Notify(TNotifyUI & msg)
+{
+  if (msg.sType == _T("itemselect"))
+    if (msg.pSender->GetName() == _T("play_list"))
+      OnSelectPlay(msg);
+
+  __super::Notify(msg);
+}
+
 LRESULT Manager::OnInit()
 {
   /* 读取所有的方案名，并填入方案名下来列表中 */
-  PDUI_COMBO play_list = static_cast<PDUI_COMBO>(m_PaintManager.FindControl(_T("play_list")));
-  PDUI_LISTLABELELEM list_elem;
-  for (auto play_name : xml_manager_.GetAllNodeName()) {
-    list_elem = new CListLabelElementUI;
-    list_elem->SetText(play_name);
-    play_list->Add(list_elem);
-  }
+  FlushPlayList();
 
   /* 初始化收录所有 ip地址 控件 */
   vector<LPCTSTR> all_ip_ui_str = {
@@ -51,8 +55,8 @@ LRESULT Manager::OnInit()
 
 void Manager::OnUserClick(const TNotifyUI& msg)
 {
-  if (msg.pSender->GetName() == _T("start_play")) {
-
+  if (msg.pSender->GetName() == _T("start_play_btn")) {       // 启动方案
+    StartPlay();
   } else if (msg.pSender->GetName() == _T("advanced_btn")) {
 
   } else if (msg.pSender->GetName() == _T("update_play_btn")) {
@@ -80,14 +84,24 @@ LRESULT Manager::OnLogCloseMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL & b
 void Manager::OnClickAddPlayBtn()
 {
   NodeStruct node_info;
-  if (!GetPlayInfo(node_info))
+  if (!GetPlayInfo(node_info)) {
+    MessageBox(nullptr, _T("方案信息不合理哦，亲！"), _T("Message"), MB_OK);
     return;
+  }
 
   AddNewPlayWnd new_play;
   new_play.DoModal(*this);
+  CDuiString node_name = new_play.GetNewName();
+  if (node_name == _T("")) {
+    MessageBox(nullptr, _T("方案名不能为空哦，亲！"), _T("Message"), MB_OK);
+    return;
+  }
+
   char temp[MAX_PATH] = { 0 };
-  node_info.node_name = xml_manager_.WideToMulti(new_play.GetNewName(), temp);
+  node_info.node_name = xml_manager_.WideToMulti(node_name, temp);
   xml_manager_.InsertNode(node_info);
+
+  FlushPlayList();
 }
 
 BOOL Manager::GetPlayInfo(NodeStruct & node_info)
@@ -97,6 +111,78 @@ BOOL Manager::GetPlayInfo(NodeStruct & node_info)
       return FALSE;
   }
 
+  vector<string> attr_name = {
+    "ip_address",
+    "netmask",
+    "gateway",
+    "firstDNS",
+    "secondDNS"
+  };
+  
+  for (int i = 0; i != 5; ++i) {
+    char temp[MAX_PATH] = { 0 };
+    string attr_value = xml_manager_.WideToMulti(ip_ui_vector_[i]->GetText(), temp);
+    node_info.attrs.push_back({ attr_name[i], attr_value });
+  }
 
   return TRUE;
+}
+
+void Manager::FlushPlayList()
+{
+  PDUI_COMBO play_list = static_cast<PDUI_COMBO>(m_PaintManager.FindControl(_T("play_list")));
+  for (int i = 1; i < play_list->GetCount(); )
+    play_list->RemoveAt(1);
+
+  PDUI_LISTLABELELEM list_elem;
+  for (auto play_name : xml_manager_.GetAllNodeName()) {
+    list_elem = new CListLabelElementUI;
+    list_elem->SetText(play_name);
+    play_list->Add(list_elem);
+  }
+}
+
+void Manager::OnSelectPlay(TNotifyUI & msg)
+{
+  CDuiString play_name = msg.pSender->GetText();
+  if (play_name == _T("Auto")) {
+    for (auto iter : ip_ui_vector_) {
+      iter->SetText(_T("..."));
+    }
+    return;
+  }
+
+  NodeStruct node_info = xml_manager_.GetNodeInfo(play_name);
+  for (int i = 0; i != 5; ++i) {
+    LPCTSTR ip_info = xml_manager_.MultiToWide(node_info.attrs[i].second);
+    ip_ui_vector_[i]->SetText(ip_info);
+  }
+}
+
+void Manager::StartPlay()
+{
+  PDUI_COMBO play_list = static_cast<PDUI_COMBO>(m_PaintManager.FindControl(_T("play_list")));
+  NodeStruct node_info = xml_manager_.GetNodeInfo(play_list->GetText());
+
+  CDuiString ip_line = _T("/c netsh interface ip set address \"以太网\" ");
+  CDuiString dns_line = _T("/c netsh interface ip set dnsservers \"以太网\" ");
+
+  ExcuteCommand(_T("/c calc.exe"));
+}
+
+void Manager::ExcuteCommand(LPCTSTR command_lien)
+{
+  SHELLEXECUTEINFO shell_info = { 0 };
+  shell_info.cbSize = sizeof(SHELLEXECUTEINFO);
+  shell_info.fMask = SEE_MASK_NOCLOSEPROCESS;
+  shell_info.lpVerb = nullptr;
+  shell_info.hwnd = nullptr;
+  shell_info.lpFile = _T("cmd.exe");
+  shell_info.lpDirectory = nullptr;
+  shell_info.nShow = SW_HIDE;
+  shell_info.lpParameters = command_lien;
+  shell_info.hInstApp = nullptr;
+
+  ShellExecuteEx(&shell_info);
+  WaitForSingleObject(shell_info.hProcess, INFINITE);
 }
