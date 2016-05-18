@@ -6,6 +6,15 @@ XmlManager::XmlManager() :
   path_and_name_(_T("")),
   is_load_(false)
 {
+  vector<LPCTSTR> temp_str = {
+    _T("IPAddress"),
+    _T("Netmask"),
+    _T("Gateway"),
+    _T("FirstDNS"),
+    _T("SecondDNS")
+  };
+  for (auto iter : temp_str)
+    net_attrs_.push_back(iter);
 }
 
 XmlManager::~XmlManager()
@@ -33,44 +42,62 @@ BOOL XmlManager::LoadFile(CDuiString file_path, CDuiString file_name)
   return is_load_;
 }
 
-void XmlManager::InsertNode(NodeStruct node_info)
+void XmlManager::InsertNode(NetStruct net_info)
 {
   if (!is_load_)
     return;
 
   pugi::xml_node pa_node = file_.child("Info").append_child("Play");
-  pa_node.append_attribute("name") = node_info.node_name.c_str();
+  char temp[MAX_PATH] = { 0 };
+  ZeroMemory(temp, MAX_PATH);
+  pa_node.append_attribute("name") = WideToMulti(net_info.play_name, temp);
   pugi::xml_node son_node;
 
-  for (auto iter = node_info.attrs.begin(); iter != node_info.attrs.end(); ++iter) {
-    son_node = pa_node.append_child("Attribute");
-    son_node.append_attribute((*iter).first.c_str()) = (*iter).second.c_str();
-  }
+  son_node = pa_node.append_child("IPAddress");
+  ZeroMemory(temp, MAX_PATH);
+  son_node.append_attribute("value") = WideToMulti(net_info.ip_address, temp);
+  
+  son_node = pa_node.append_child("Netmask");
+  ZeroMemory(temp, MAX_PATH);
+  son_node.append_attribute("value") = WideToMulti(net_info.netmask, temp);
+
+  son_node = pa_node.append_child("Gateway");
+  ZeroMemory(temp, MAX_PATH);
+  son_node.append_attribute("value") = WideToMulti(net_info.gateway, temp);
+
+  son_node = pa_node.append_child("FirstDNS");
+  ZeroMemory(temp, MAX_PATH);
+  son_node.append_attribute("value") = WideToMulti(net_info.firstDNS, temp);
+
+  son_node = pa_node.append_child("SecondDNS");
+  ZeroMemory(temp, MAX_PATH);
+  son_node.append_attribute("value") = WideToMulti(net_info.secondDNS, temp);
 
   file_.save_file(path_and_name_.GetData());
 }
 
-NodeStruct XmlManager::GetNodeInfo(LPCTSTR node_name)
+NetStruct XmlManager::GetNodeInfo(LPCTSTR name)
 {
-  NodeStruct node_info;
+  NetStruct net_info;
   pugi::xml_node node = file_.child("Info");
   char temp_char[MAX_PATH] = { 0 };
   for (auto pa_node : node) {
     string play_name = pa_node.attribute("name").as_string();
-    if (0 == play_name.compare(WideToMulti(node_name, temp_char))) {
-      node_info.node_name = play_name;
-      for (auto son_node : pa_node.children()) {
-        pugi::xml_attribute attr = son_node.first_attribute();
-        node_info.attrs.push_back({ attr.name(), attr.as_string() });
-      }
+    if (0 == play_name.compare(WideToMulti(name, temp_char))) {   // 如果是我们需要的方案
+      net_info.play_name = name;
+      net_info.ip_address = pa_node.child("IPAddress").attribute("value").as_string();
+      net_info.netmask = pa_node.child("Netmask").attribute("value").as_string();
+      net_info.gateway = pa_node.child("Gateway").attribute("value").as_string();
+      net_info.firstDNS = pa_node.child("FirstDNS").attribute("value").as_string();
+      net_info.secondDNS = pa_node.child("SecondDNS").attribute("value").as_string();
     }
   }
-  return node_info;
+  return net_info;
 }
 
-vector<NodeStruct> XmlManager::GetAllNode()
+vector<NetStruct> XmlManager::GetAllNode()
 {
-  return vector<NodeStruct>();
+  return vector<NetStruct>();
 }
 
 vector<CDuiString> XmlManager::GetAllNodeName()

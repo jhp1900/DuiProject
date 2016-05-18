@@ -2,11 +2,16 @@
 #include "stdafx.h"
 #include "pugixml\pugixml.hpp"
 
-typedef struct _NodeStruct
+typedef struct _NetStruct
 {
-  string node_name;   // 节点名
-  vector<pair<string, string>> attrs;  // 属性对向量, first为属性名， second为属性值
-} NodeStruct;
+  CDuiString play_name;   // 方案名
+  CDuiString ip_address;  // IP 地址
+  CDuiString netmask;     // 子网掩码
+  CDuiString gateway;     // 默认网关
+  CDuiString firstDNS;    // 首选DNS
+  CDuiString secondDNS;   // 备用DNS
+  vector<pair<CDuiString, CDuiString>> more_ip_mask;  // 可添加的多个 IP 信息
+} NetStruct;
 
 class XmlManager
 {
@@ -17,14 +22,17 @@ public:
 public:
   BOOL IsLoad() const { return is_load_; }
   BOOL LoadFile(CDuiString file_path, CDuiString file_name);
-  void InsertNode(NodeStruct node_info);
-  NodeStruct GetNodeInfo(LPCTSTR node_name);
-  vector<NodeStruct> GetAllNode();
+  void InsertNode(NetStruct net_info);
+  NetStruct GetNodeInfo(LPCTSTR name);
+  vector<NetStruct> GetAllNode();
   vector<CDuiString> GetAllNodeName();
 
 public:
   char * WideToMulti(CDuiString wide, char * multi);    // 宽字符转多字节
   CDuiString MultiToWide(string multi);                 // 多字节转宽字符 
+
+public:
+  vector<LPCTSTR> net_attrs_;
 
 private:
   pugi::xml_document file_;       // 配置文件

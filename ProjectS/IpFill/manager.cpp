@@ -66,7 +66,7 @@ void Manager::OnUserClick(const TNotifyUI& msg)
   } else if (msg.pSender->GetName() == _T("add_play_btn")) {
     OnClickAddPlayBtn();
   } else if (msg.pSender->GetName() == _T("test_btn")) {      // 测试内容
-
+    
   }
 }
 
@@ -83,47 +83,37 @@ LRESULT Manager::OnLogCloseMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL & b
 
 void Manager::OnClickAddPlayBtn()
 {
-  NodeStruct node_info;
-  if (!GetPlayInfo(node_info)) {
+  NetStruct net_info;
+  if (!GetPlayInfo(net_info)) {
     MessageBox(nullptr, _T("方案信息不合理哦，亲！"), _T("Message"), MB_OK);
     return;
   }
 
   AddNewPlayWnd new_play;
   new_play.DoModal(*this);
-  CDuiString node_name = new_play.GetNewName();
-  if (node_name == _T("")) {
+  if (new_play.GetNewName() == _T("")) {
     MessageBox(nullptr, _T("方案名不能为空哦，亲！"), _T("Message"), MB_OK);
     return;
   }
 
-  char temp[MAX_PATH] = { 0 };
-  node_info.node_name = xml_manager_.WideToMulti(node_name, temp);
-  xml_manager_.InsertNode(node_info);
+  net_info.play_name = new_play.GetNewName();
+  xml_manager_.InsertNode(net_info);
 
   FlushPlayList();
 }
 
-BOOL Manager::GetPlayInfo(NodeStruct & node_info)
+BOOL Manager::GetPlayInfo(NetStruct & net_info)
 {
   for (auto iter : ip_ui_vector_) {
     if (!iter->IsReasonable())
       return FALSE;
   }
 
-  vector<string> attr_name = {
-    "ip_address",
-    "netmask",
-    "gateway",
-    "firstDNS",
-    "secondDNS"
-  };
-  
-  for (int i = 0; i != 5; ++i) {
-    char temp[MAX_PATH] = { 0 };
-    string attr_value = xml_manager_.WideToMulti(ip_ui_vector_[i]->GetText(), temp);
-    node_info.attrs.push_back({ attr_name[i], attr_value });
-  }
+  net_info.ip_address = ip_ui_vector_[0]->GetText();
+  net_info.netmask = ip_ui_vector_[1]->GetText();
+  net_info.gateway = ip_ui_vector_[2]->GetText();
+  net_info.firstDNS = ip_ui_vector_[3]->GetText();
+  net_info.secondDNS = ip_ui_vector_[4]->GetText();
 
   return TRUE;
 }
@@ -152,37 +142,51 @@ void Manager::OnSelectPlay(TNotifyUI & msg)
     return;
   }
 
-  NodeStruct node_info = xml_manager_.GetNodeInfo(play_name);
-  for (int i = 0; i != 5; ++i) {
-    LPCTSTR ip_info = xml_manager_.MultiToWide(node_info.attrs[i].second);
-    ip_ui_vector_[i]->SetText(ip_info);
-  }
+  NetStruct net_info = xml_manager_.GetNodeInfo(play_name);
+  ip_ui_vector_[0]->SetText(net_info.ip_address);
+  ip_ui_vector_[1]->SetText(net_info.netmask);
+  ip_ui_vector_[2]->SetText(net_info.gateway);
+  ip_ui_vector_[3]->SetText(net_info.firstDNS);
+  ip_ui_vector_[4]->SetText(net_info.secondDNS);
 }
 
 void Manager::StartPlay()
 {
+  vector<LPCTSTR> command_lines;
   CDuiString set_ip_line = _T("/c netsh interface ip set address \"以太网\"");
   CDuiString set_dns_line = _T("/c netsh interface ip set dnsservers \"以太网\"");
+  CDuiString add_ip_line = _T("/c netsh interface ip add address \"以太网\"");
+  CDuiString add_dns_line = _T("/c netsh interface ip add dnsservers \"以太网\" ");
   PDUI_COMBO play_list = static_cast<PDUI_COMBO>(m_PaintManager.FindControl(_T("play_list")));
 
   if (play_list->GetText() == _T("Auto")) {
     set_ip_line += _T(" dhcp");
     set_dns_line += _T(" dhcp");
+    command_lines.push_back(set_ip_line);
+    command_lines.push_back(set_dns_line);
   } else {
-    NodeStruct node_info = xml_manager_.GetNodeInfo(play_list->GetText());
+    NetStruct net_info = xml_manager_.GetNodeInfo(play_list->GetText());
 
-    set_ip_line += _T(" static");
-    for (int i = 0; i != 3; ++i) {
-      set_ip_line += _T(" ");
-      set_ip_line += xml_manager_.MultiToWide(node_info.attrs[i].second);
+    set_ip_line = set_ip_line 
+      + _T(" static ") + net_info.ip_address 
+      + _T(" ") + net_info.netmask 
+      + _T(" ") + net_info.gateway;
+    set_dns_line = set_dns_line + _T(" static ") + net_info.firstDNS;
+    command_lines.push_back(set_ip_line);
+    command_lines.push_back(set_dns_line);
+
+    for (auto iter : net_info.more_ip_mask) {
+      command_lines.push_back(add_ip_line + _T(" ") + iter.first + _T(" ") + iter.second);
     }
 
-    set_dns_line += _T(" static ");
-    set_dns_line += xml_manager_.MultiToWide(node_info.attrs[3].second);
+    if (net_info.secondDNS != _T("")) {
+      add_dns_line += net_info.secondDNS;
+      command_lines.push_back(add_dns_line);
+      int a = 0;
+    }
   }
 
-  ExcuteCommand(set_ip_line);
-  ExcuteCommand(set_dns_line);
+  ExcuteCommand(command_lines);
 }
 
 void Manager::ExcuteCommand(LPCTSTR command_lien)
@@ -199,5 +203,13 @@ void Manager::ExcuteCommand(LPCTSTR command_lien)
   shell_info.hInstApp = nullptr;
 
   ShellExecuteEx(&shell_info);
-  WaitForSingleObject(shell_info.hProcess, INFINITE);
+  //WaitForSingleObject(shell_info.hProcess, INFINITE);
+  DWORD exitcode;
+  GetExitCodeProcess(shell_info.hProcess, &exitcode);
+}
+
+void Manager::ExcuteCommand(vector<LPCTSTR> command_lien_s)
+{
+  for (auto iter : command_lien_s)
+    ExcuteCommand(iter);
 }

@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <Info>
-	<Play name="1205">
-		<Attribute ip_address="172.20.134.122" />
-		<Attribute netmask="255.255.255.0" />
-		<Attribute gateway="172.20.134.2" />
-		<Attribute firstDNS="8.8.8.8" />
-		<Attribute secondDNS="172.20.134.2" />
+	<Play name="KINGHOO">
+		<IPAddress value="10.18.3.62" />
+		<Netmask value="255.255.255.0" />
+		<Gateway value="10.18.3.1" />
+		<FirstDNS value="218.6.200.139" />
+		<SecondDNS value="61.139.2.69" />
 	</Play>
 </Info>
