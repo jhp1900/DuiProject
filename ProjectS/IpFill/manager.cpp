@@ -161,18 +161,28 @@ void Manager::OnSelectPlay(TNotifyUI & msg)
 
 void Manager::StartPlay()
 {
+  CDuiString set_ip_line = _T("/c netsh interface ip set address \"以太网\"");
+  CDuiString set_dns_line = _T("/c netsh interface ip set dnsservers \"以太网\"");
   PDUI_COMBO play_list = static_cast<PDUI_COMBO>(m_PaintManager.FindControl(_T("play_list")));
-  NodeStruct node_info = xml_manager_.GetNodeInfo(play_list->GetText());
 
-  CDuiString set_ip_line = _T("/c netsh interface ip set address \"以太网\" static");
-  CDuiString set_dns_line = _T("/c netsh interface ip set dnsservers \"以太网\" static");
+  if (play_list->GetText() == _T("Auto")) {
+    set_ip_line += _T(" dhcp");
+    set_dns_line += _T(" dhcp");
+  } else {
+    NodeStruct node_info = xml_manager_.GetNodeInfo(play_list->GetText());
 
-  for (int i = 0; i != 3; ++i) {
-    set_ip_line += _T(" ");
-    set_ip_line += xml_manager_.MultiToWide(node_info.attrs[i].second);
+    set_ip_line += _T(" static");
+    for (int i = 0; i != 3; ++i) {
+      set_ip_line += _T(" ");
+      set_ip_line += xml_manager_.MultiToWide(node_info.attrs[i].second);
+    }
+
+    set_dns_line += _T(" static ");
+    set_dns_line += xml_manager_.MultiToWide(node_info.attrs[3].second);
   }
-    
+
   ExcuteCommand(set_ip_line);
+  ExcuteCommand(set_dns_line);
 }
 
 void Manager::ExcuteCommand(LPCTSTR command_lien)
@@ -180,7 +190,7 @@ void Manager::ExcuteCommand(LPCTSTR command_lien)
   SHELLEXECUTEINFO shell_info = { 0 };
   shell_info.cbSize = sizeof(SHELLEXECUTEINFO);
   shell_info.fMask = SEE_MASK_NOCLOSEPROCESS;
-  shell_info.lpVerb = nullptr;
+  shell_info.lpVerb = _T("runas");      // runas 可以实现以管理员权限运行程序
   shell_info.hwnd = nullptr;
   shell_info.lpFile = _T("cmd.exe");
   shell_info.lpDirectory = nullptr;
