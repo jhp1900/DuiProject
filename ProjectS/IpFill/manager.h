@@ -35,12 +35,14 @@ private:
   LRESULT OnInitCustomControlMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandled);
   LRESULT OnLogCloseMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandled);
   void OnClickAddPlayBtn();
-  BOOL GetPlayInfo(NetStruct &node_info);
+  void OnClickAdvanced();
+  BOOL GetPlayInfo(NETSTRUCT &node_info);
   void FlushPlayList();
   void OnSelectPlay(TNotifyUI &msg);
   void StartPlay();
-  void ExcuteCommand(LPCTSTR command_lien);               // 执行一个命令
-  void ExcuteCommand(vector<CDuiString> command_lien_s);     // 执行一组命令集
+  BOOL ExcuteCommand(LPCTSTR command_lien);               // 执行一个命令
+  BOOL ExcuteCommand(vector<CDuiString> command_lien_s);     // 执行一组命令集
+  void OnClickTestBtn();
 
 private:
   static Manager *instance_;    // 单例模式的实例

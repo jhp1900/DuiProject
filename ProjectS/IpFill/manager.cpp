@@ -1,5 +1,6 @@
 #include "manager.h"
 #include "add_new_play_wnd.h"
+#include "advanced_wnd.h"
 #include <shellapi.h>
 
 Manager* Manager::instance_ = nullptr;
@@ -58,7 +59,7 @@ void Manager::OnUserClick(const TNotifyUI& msg)
   if (msg.pSender->GetName() == _T("start_play_btn")) {       // 启动方案
     StartPlay();
   } else if (msg.pSender->GetName() == _T("advanced_btn")) {
-
+    OnClickAdvanced();
   } else if (msg.pSender->GetName() == _T("update_play_btn")) {
 
   } else if (msg.pSender->GetName() == _T("del_play_btn")) {
@@ -66,7 +67,7 @@ void Manager::OnUserClick(const TNotifyUI& msg)
   } else if (msg.pSender->GetName() == _T("add_play_btn")) {
     OnClickAddPlayBtn();
   } else if (msg.pSender->GetName() == _T("test_btn")) {      // 测试内容
-    
+    OnClickTestBtn();
   }
 }
 
@@ -83,7 +84,7 @@ LRESULT Manager::OnLogCloseMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL & b
 
 void Manager::OnClickAddPlayBtn()
 {
-  NetStruct net_info;
+  NETSTRUCT net_info;
   if (!GetPlayInfo(net_info)) {
     MessageBox(nullptr, _T("方案信息不合理哦，亲！"), _T("Message"), MB_OK);
     return;
@@ -91,29 +92,32 @@ void Manager::OnClickAddPlayBtn()
 
   AddNewPlayWnd new_play;
   new_play.DoModal(*this);
-  if (new_play.GetNewName() == _T("")) {
-    MessageBox(nullptr, _T("方案名不能为空哦，亲！"), _T("Message"), MB_OK);
+  CDuiString play_name = new_play.GetNewName();
+  if (play_name == _T(""))
     return;
-  }
 
-  net_info.play_name = new_play.GetNewName();
+  net_info.play_name = play_name;
   xml_manager_.InsertNode(net_info);
 
   FlushPlayList();
 }
 
-BOOL Manager::GetPlayInfo(NetStruct & net_info)
+void Manager::OnClickAdvanced()
+{
+  AdvancedWnd adv_wnd;
+  adv_wnd.DoModal(*this);
+}
+
+BOOL Manager::GetPlayInfo(NETSTRUCT & net_info)
 {
   for (auto iter : ip_ui_vector_) {
     if (!iter->IsReasonable())
       return FALSE;
   }
 
-  net_info.ip_address = ip_ui_vector_[0]->GetText();
-  net_info.netmask = ip_ui_vector_[1]->GetText();
-  net_info.gateway = ip_ui_vector_[2]->GetText();
-  net_info.firstDNS = ip_ui_vector_[3]->GetText();
-  net_info.secondDNS = ip_ui_vector_[4]->GetText();
+  for (int i = 0; i != 5; ++i) {
+    net_info.SetVar(xml_manager_.net_attrs_[i], ip_ui_vector_[i]->GetText());
+  }
 
   return TRUE;
 }
@@ -142,42 +146,40 @@ void Manager::OnSelectPlay(TNotifyUI & msg)
     return;
   }
 
-  NetStruct net_info = xml_manager_.GetNodeInfo(play_name);
-  ip_ui_vector_[0]->SetText(net_info.ip_address);
-  ip_ui_vector_[1]->SetText(net_info.netmask);
-  ip_ui_vector_[2]->SetText(net_info.gateway);
-  ip_ui_vector_[3]->SetText(net_info.firstDNS);
-  ip_ui_vector_[4]->SetText(net_info.secondDNS);
+  NETSTRUCT net_info = xml_manager_.GetNodeInfo(play_name);
+  for (int i = 0; i != 5; ++i) {
+    ip_ui_vector_[i]->SetText(net_info.GetVar(xml_manager_.net_attrs_[i]));
+  }
 }
 
 void Manager::StartPlay()
 {
   vector<CDuiString> command_lines;
-  CDuiString set_ip_line = _T("/c netsh interface ip set address \"以太网\"");
-  CDuiString set_dns_line = _T("/c netsh interface ip set dnsservers \"以太网\"");
-  CDuiString add_ip_line = _T("/c netsh interface ip add address \"以太网\"");
+  CDuiString set_ip_line = _T("/c netsh interface ip set address \"以太网\" ");
+  CDuiString set_dns_line = _T("/c netsh interface ip set dnsservers \"以太网\" ");
+  CDuiString add_ip_line = _T("/c netsh interface ip add address \"以太网\" ");
   CDuiString add_dns_line = _T("/c netsh interface ip add dnsservers \"以太网\" ");
-  CDuiString add_temp = _T("");
   PDUI_COMBO play_list = static_cast<PDUI_COMBO>(m_PaintManager.FindControl(_T("play_list")));
 
   if (play_list->GetText() == _T("Auto")) {
-    set_ip_line += _T(" dhcp");
-    set_dns_line += _T(" dhcp");
+    set_ip_line += _T("dhcp");
+    set_dns_line += _T("dhcp");
     command_lines.push_back(set_ip_line);
     command_lines.push_back(set_dns_line);
   } else {
-    NetStruct net_info = xml_manager_.GetNodeInfo(play_list->GetText());
+    NETSTRUCT net_info = xml_manager_.GetNodeInfo(play_list->GetText());
 
     set_ip_line = set_ip_line 
-      + _T(" static ") + net_info.ip_address 
+      + _T("static ") + net_info.ip_address 
       + _T(" ") + net_info.netmask 
       + _T(" ") + net_info.gateway;
-    set_dns_line = set_dns_line + _T(" static ") + net_info.firstDNS;
     command_lines.push_back(set_ip_line);
+
+    set_dns_line = set_dns_line + _T("static ") + net_info.firstDNS;
     command_lines.push_back(set_dns_line);
 
     for (auto iter : net_info.more_ip_mask) {
-      command_lines.push_back(add_ip_line + _T(" ") + iter.first + _T(" ") + iter.second);
+      command_lines.push_back(add_ip_line + iter.first + _T(" ") + iter.second);
     }
 
     if (net_info.secondDNS != _T("")) {
@@ -187,10 +189,13 @@ void Manager::StartPlay()
     }
   }
 
-  ExcuteCommand(command_lines);
+  if (ExcuteCommand(command_lines))
+    MessageBox(nullptr, _T("方案启用成功!"), _T("Message"), MB_OK);
+  else
+    MessageBox(nullptr, _T("方案启用失败！请查证！"), _T("Message"), MB_OK);
 }
 
-void Manager::ExcuteCommand(LPCTSTR command_lien)
+BOOL Manager::ExcuteCommand(LPCTSTR command_lien)
 {
   SHELLEXECUTEINFO shell_info = { 0 };
   shell_info.cbSize = sizeof(SHELLEXECUTEINFO);
@@ -203,14 +208,20 @@ void Manager::ExcuteCommand(LPCTSTR command_lien)
   shell_info.lpParameters = command_lien;
   shell_info.hInstApp = nullptr;
 
-  ShellExecuteEx(&shell_info);
-  //WaitForSingleObject(shell_info.hProcess, INFINITE);
   DWORD exitcode;
-  GetExitCodeProcess(shell_info.hProcess, &exitcode);
+  ShellExecuteEx(&shell_info);
+  return GetExitCodeProcess(shell_info.hProcess, &exitcode);
 }
 
-void Manager::ExcuteCommand(vector<CDuiString> command_lien_s)
+BOOL Manager::ExcuteCommand(vector<CDuiString> command_lien_s)
 {
   for (auto iter : command_lien_s)
-    ExcuteCommand(iter);
+    if (!ExcuteCommand(iter))
+      return FALSE;
+
+  return TRUE;
+}
+
+void Manager::OnClickTestBtn()
+{
 }

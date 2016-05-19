@@ -2,7 +2,7 @@
 #include "stdafx.h"
 #include "pugixml\pugixml.hpp"
 
-typedef struct _NetStruct
+typedef struct _NETSTRUCT
 {
   CDuiString play_name;   // 方案名
   CDuiString ip_address;  // IP 地址
@@ -11,7 +11,9 @@ typedef struct _NetStruct
   CDuiString firstDNS;    // 首选DNS
   CDuiString secondDNS;   // 备用DNS
   vector<pair<CDuiString, CDuiString>> more_ip_mask;  // 可添加的多个 IP 信息
-} NetStruct;
+  void SetVar(LPCTSTR name, LPCTSTR value);   // 通用 修改器
+  CDuiString GetVar(LPCTSTR name);            // 通用 访问器
+} NETSTRUCT;
 
 class XmlManager
 {
@@ -22,9 +24,9 @@ public:
 public:
   BOOL IsLoad() const { return is_load_; }
   BOOL LoadFile(CDuiString file_path, CDuiString file_name);
-  void InsertNode(NetStruct net_info);
-  NetStruct GetNodeInfo(LPCTSTR name);
-  vector<NetStruct> GetAllNode();
+  void InsertNode(NETSTRUCT net_info);
+  NETSTRUCT GetNodeInfo(LPCTSTR name);
+  vector<NETSTRUCT> GetAllNode();
   vector<CDuiString> GetAllNodeName();
 
 public:

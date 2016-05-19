@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="add_new_play_wnd.cpp" />
+    <ClCompile Include="advanced_wnd.cpp" />
     <ClCompile Include="inlet_function.cpp" />
     <ClCompile Include="ip_control_ui.cpp" />
     <ClCompile Include="manager.cpp" />
@@ -161,6 +162,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="add_new_play_wnd.h" />
+    <ClInclude Include="advanced_wnd.h" />
     <ClInclude Include="ip_control_ui.h" />
     <ClInclude Include="manager.h" />
     <ClInclude Include="msg_head.h" />

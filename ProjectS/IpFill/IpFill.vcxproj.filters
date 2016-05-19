@@ -36,6 +36,9 @@
     <ClCompile Include="add_new_play_wnd.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="advanced_wnd.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="manager.h">
@@ -63,6 +66,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="add_new_play_wnd.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="advanced_wnd.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

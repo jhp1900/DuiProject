@@ -1,5 +1,6 @@
 #pragma once
 #include "window_impl_base.h"
+
 class AddNewPlayWnd : public WindowImplBase
 {
 public:

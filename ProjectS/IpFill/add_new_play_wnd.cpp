@@ -9,6 +9,15 @@ AddNewPlayWnd::~AddNewPlayWnd()
 {
 }
 
+BOOL AddNewPlayWnd::DoModal(HWND pa_hwnd)
+{
+  if (!Create(pa_hwnd, _T(""), WS_POPUP, WS_EX_TOOLWINDOW | WS_EX_ACCEPTFILES))
+    return false;
+  CenterWindow(pa_hwnd);
+
+  return ShowModal() != 0;
+}
+
 void AddNewPlayWnd::OnUserClick(const TNotifyUI & msg)
 {
   if (msg.pSender->GetName() == _T("OK_btn")) {
@@ -20,13 +29,4 @@ void AddNewPlayWnd::OnUserClick(const TNotifyUI & msg)
   } else if (msg.pSender->GetName() == _T("cancel_btn")) {
     Close();
   }
-}
-
-BOOL AddNewPlayWnd::DoModal(HWND pa_hwnd)
-{
-  if (!Create(pa_hwnd, _T(""), WS_POPUP, WS_EX_TOOLWINDOW | WS_EX_ACCEPTFILES))
-    return false;
-  CenterWindow(pa_hwnd);
-
-  return ShowModal() != 0;
 }
