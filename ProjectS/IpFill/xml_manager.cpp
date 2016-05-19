@@ -49,29 +49,31 @@ void XmlManager::InsertNode(NetStruct net_info)
 
   pugi::xml_node pa_node = file_.child("Info").append_child("Play");
   char temp[MAX_PATH] = { 0 };
-  ZeroMemory(temp, MAX_PATH);
   pa_node.append_attribute("name") = WideToMulti(net_info.play_name, temp);
   pugi::xml_node son_node;
 
   son_node = pa_node.append_child("IPAddress");
-  ZeroMemory(temp, MAX_PATH);
   son_node.append_attribute("value") = WideToMulti(net_info.ip_address, temp);
   
   son_node = pa_node.append_child("Netmask");
-  ZeroMemory(temp, MAX_PATH);
   son_node.append_attribute("value") = WideToMulti(net_info.netmask, temp);
 
   son_node = pa_node.append_child("Gateway");
-  ZeroMemory(temp, MAX_PATH);
   son_node.append_attribute("value") = WideToMulti(net_info.gateway, temp);
 
   son_node = pa_node.append_child("FirstDNS");
-  ZeroMemory(temp, MAX_PATH);
   son_node.append_attribute("value") = WideToMulti(net_info.firstDNS, temp);
 
   son_node = pa_node.append_child("SecondDNS");
-  ZeroMemory(temp, MAX_PATH);
   son_node.append_attribute("value") = WideToMulti(net_info.secondDNS, temp);
+
+  son_node = pa_node.append_child("MoreIP");
+  pugi::xml_node grandson_node;
+  for (auto iter : net_info.more_ip_mask) {
+    grandson_node = son_node.append_child("AddIPChild");
+    grandson_node.append_attribute("ip") = WideToMulti(iter.first, temp);
+    grandson_node.append_attribute("netmask") = WideToMulti(iter.second, temp);
+  }
 
   file_.save_file(path_and_name_.GetData());
 }
@@ -90,6 +92,13 @@ NetStruct XmlManager::GetNodeInfo(LPCTSTR name)
       net_info.gateway = pa_node.child("Gateway").attribute("value").as_string();
       net_info.firstDNS = pa_node.child("FirstDNS").attribute("value").as_string();
       net_info.secondDNS = pa_node.child("SecondDNS").attribute("value").as_string();
+      
+      pair<CDuiString, CDuiString> mo_ip_pair;
+      for (auto iter : pa_node.child("MoreIP").children()) {
+        mo_ip_pair.first = iter.attribute("ip").as_string();
+        mo_ip_pair.second = iter.attribute("netmask").as_string();
+        net_info.more_ip_mask.push_back(mo_ip_pair);
+      }
     }
   }
   return net_info;
@@ -112,6 +121,7 @@ vector<CDuiString> XmlManager::GetAllNodeName()
 /* （工具函数） 宽字节 转 多字节 */
 char * XmlManager::WideToMulti(CDuiString wide, char * multi)
 {
+  ZeroMemory(multi, MAX_PATH);
   int wide_len = wide.GetLength();
   int multi_len = WideCharToMultiByte(CP_ACP, NULL, wide.GetData(), wide_len, NULL, 0, NULL, FALSE);
   ::WideCharToMultiByte(CP_ACP, NULL, wide.GetData(), -1, multi, multi_len, NULL, FALSE);

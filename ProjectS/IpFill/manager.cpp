@@ -152,11 +152,12 @@ void Manager::OnSelectPlay(TNotifyUI & msg)
 
 void Manager::StartPlay()
 {
-  vector<LPCTSTR> command_lines;
+  vector<CDuiString> command_lines;
   CDuiString set_ip_line = _T("/c netsh interface ip set address \"ÒÔÌ«Íø\"");
   CDuiString set_dns_line = _T("/c netsh interface ip set dnsservers \"ÒÔÌ«Íø\"");
   CDuiString add_ip_line = _T("/c netsh interface ip add address \"ÒÔÌ«Íø\"");
   CDuiString add_dns_line = _T("/c netsh interface ip add dnsservers \"ÒÔÌ«Íø\" ");
+  CDuiString add_temp = _T("");
   PDUI_COMBO play_list = static_cast<PDUI_COMBO>(m_PaintManager.FindControl(_T("play_list")));
 
   if (play_list->GetText() == _T("Auto")) {
@@ -208,7 +209,7 @@ void Manager::ExcuteCommand(LPCTSTR command_lien)
   GetExitCodeProcess(shell_info.hProcess, &exitcode);
 }
 
-void Manager::ExcuteCommand(vector<LPCTSTR> command_lien_s)
+void Manager::ExcuteCommand(vector<CDuiString> command_lien_s)
 {
   for (auto iter : command_lien_s)
     ExcuteCommand(iter);

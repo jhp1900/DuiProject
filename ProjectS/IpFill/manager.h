@@ -40,7 +40,7 @@ private:
   void OnSelectPlay(TNotifyUI &msg);
   void StartPlay();
   void ExcuteCommand(LPCTSTR command_lien);               // 执行一个命令
-  void ExcuteCommand(vector<LPCTSTR> command_lien_s);     // 执行一组命令集
+  void ExcuteCommand(vector<CDuiString> command_lien_s);     // 执行一组命令集
 
 private:
   static Manager *instance_;    // 单例模式的实例

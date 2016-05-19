@@ -6,5 +6,17 @@
 		<Gateway value="10.18.3.1" />
 		<FirstDNS value="218.6.200.139" />
 		<SecondDNS value="61.139.2.69" />
+		<MoreIP>
+			<AddIPChild ip="192.0.0.211" netmask="255.255.255.0" />
+			<AddIPChild ip="172.20.134.122" netmask="255.255.255.0" />
+		</MoreIP>
+	</Play>
+	<Play name="KINGHOO_1">
+		<IPAddress value="10.18.3.62" />
+		<Netmask value="255.255.255.0" />
+		<Gateway value="10.18.3.1" />
+		<FirstDNS value="218.6.200.139" />
+		<SecondDNS value="61.139.2.69" />
+		<MoreIP />
 	</Play>
 </Info>
