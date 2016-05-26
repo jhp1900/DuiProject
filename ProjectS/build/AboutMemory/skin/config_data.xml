@@ -1,8 +1,7 @@
 <?xml version="1.0"?>
 <Data>
-  <UserName value="" />
-  <Password value="" />
-  <UserData>
-    <Xjhp data_path="C:\Users\jhp19\Documents\Xjhp\" />
-  </UserData>
+	<UserName value="" />
+	<Password value="" />
+	<UserData>
+	</UserData>
 </Data>

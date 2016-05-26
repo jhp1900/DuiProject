@@ -151,11 +151,11 @@ void CMainDialog::OnInit()
 	ASSERT(pList);
 	if (pList) {
 		pList->SetTextCallback(this);
-		for (int i = 0; i < 100; ++i) {
+		for (int i = 0; i < 3; ++i) {
 			CListTextElementUI* pItem = new CListTextElementUI;
 			m_arstrListString0 [i].Format(_T ("{i list_png.png}{/i}{x 4}%d"), i);
 			m_arstrListString1 [i].Format(_T ("%d - 1"), i);
-			m_arstrListString2 [i].Format(_T ("%d - 2"), i);
+      m_arstrListString2 [i].Format(_T ("%d - 2"), i);
 			pList->Add(pItem);
 		}
 	}

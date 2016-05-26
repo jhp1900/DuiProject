@@ -44,6 +44,9 @@ private:
   BOOL ExcuteCommand(vector<CDuiString> command_lien_s);     // 执行一组命令集
   void OnClickTestBtn();
 
+public:
+  XmlManager* GetXmlManager() { return &xml_manager_; }
+
 private:
   static Manager *instance_;    // 单例模式的实例
   XmlManager xml_manager_;

@@ -104,7 +104,7 @@ void Manager::OnClickAddPlayBtn()
 
 void Manager::OnClickAdvanced()
 {
-  AdvancedWnd adv_wnd;
+  AdvancedWnd adv_wnd(_T("Xjh"));
   adv_wnd.DoModal(*this);
 }
 
