@@ -26,8 +26,10 @@ public:
   BOOL LoadFile(CDuiString file_path, CDuiString file_name);
   void InsertNode(NETSTRUCT net_info);
   NETSTRUCT GetNodeInfo(LPCTSTR name);
+  pugi::xml_node GetNode(LPCTSTR name);
   vector<NETSTRUCT> GetAllNode();
   vector<CDuiString> GetAllNodeName();
+  BOOL RemoveNode(pugi::xml_node node);
 
 public:
   char * WideToMulti(CDuiString wide, char * multi);    // ¿í×Ö·û×ª¶à×Ö½Ú

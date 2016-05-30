@@ -120,7 +120,21 @@ NETSTRUCT XmlManager::GetNodeInfo(LPCTSTR name)
       }
     }
   }
+
   return net_info;
+}
+
+pugi::xml_node XmlManager::GetNode(LPCTSTR name)
+{
+  pugi::xml_node root_node = file_.child("Info");
+  char temp_char[MAX_PATH] = { 0 };
+  for (auto node : root_node) {
+    string play_name = node.attribute("name").as_string();
+    if (0 == play_name.compare(WideToMulti(name, temp_char)))    // 如果是我们需要的方案
+      return node;
+  }
+
+  return pugi::xml_node();
 }
 
 vector<NETSTRUCT> XmlManager::GetAllNode()
@@ -134,6 +148,15 @@ vector<CDuiString> XmlManager::GetAllNodeName()
   for (auto node : file_.child("Info")) {
     ret.push_back(MultiToWide(node.attribute("name").as_string()));
   }
+  return ret;
+}
+
+BOOL XmlManager::RemoveNode(pugi::xml_node node)
+{
+  pugi::xml_node pa_node = node.parent();
+  BOOL ret = pa_node.remove_child(node);
+
+  file_.save_file(path_and_name_.GetData());
   return ret;
 }
 

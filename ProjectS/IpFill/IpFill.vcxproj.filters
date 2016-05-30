@@ -39,6 +39,12 @@
     <ClCompile Include="advanced_wnd.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="res_singleton.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="edit_more_wnd.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="manager.h">
@@ -69,6 +75,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="advanced_wnd.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="res_singleton.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="edit_more_wnd.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

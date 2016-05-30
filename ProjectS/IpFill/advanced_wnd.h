@@ -1,7 +1,7 @@
 #pragma once
 #include "window_impl_base.h"
 
-class AdvancedWnd : public WindowImplBase, public IListCallbackUI
+class AdvancedWnd : public WindowImplBase
 {
 public:
   AdvancedWnd();
@@ -12,10 +12,13 @@ public:
 
 private:
   virtual LRESULT OnInit() override;
-  virtual CDuiString GetItemText(CControlUI* pList, int iItem, int iSubItem) override;
+  virtual void OnUserClick(const TNotifyUI& msg) override;
 
 public:
   BOOL DoModal(HWND pa_hwnd);
+
+private:
+  void FlushList();
 
 private:
   CDuiString play_name_;

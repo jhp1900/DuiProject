@@ -6,6 +6,18 @@
 		<Gateway value="10.18.3.1" />
 		<FirstDNS value="218.6.200.139" />
 		<SecondDNS value="61.139.2.69" />
-		<MoreIP />
+		<MoreIP>
+			<AddIPChild ip="192.0.0.211" netmask="255.255.255.0" />
+		</MoreIP>
 	</Play>
+	<Play_1 name="Demo_0">
+		<IPAddress value="10.18.3.62" />
+		<Netmask value="255.255.255.0" />
+		<Gateway value="10.18.3.1" />
+		<FirstDNS value="218.6.200.139" />
+		<SecondDNS value="61.139.2.69" />
+		<MoreIP>
+			<AddIPChild ip="192.0.0.211" netmask="255.255.255.0" />
+		</MoreIP>
+	</Play_1>
 </Info>

@@ -9,7 +9,7 @@
     </HorizontalLayout>
     <Container bkcolor="#fffafafa" inset="20,10,20,10">
       <VerticalLayout bkcolor="#fff3f3f3" inset="10,10,10,10">
-        <List name="ip_list" bkcolor="#ffeaeaea">
+        <List name="ip_list" bkcolor="#ffeaeaea" itemalign="center">
           <ListHeader bkcolor="#ffe2e2e2">
             <ListHeaderItem text="IP地址" />
             <ListHeaderItem text="子网掩码" />
@@ -18,11 +18,11 @@
         <Control height="10" />
         <HorizontalLayout height="25">
           <Control />
-          <Button name="cancel_btn" width="60" text="添加" hottextcolor="#ffff0000" pushedtextcolor="#ff000000" bkcolor="#ffe1e1e1" bordercolor="#ffaaaaaa" bordersize="1" />
+          <Button name="add_btn" width="60" text="添加" hottextcolor="#ffff0000" pushedtextcolor="#ff000000" bkcolor="#ffe1e1e1" bordercolor="#ffaaaaaa" bordersize="1" />
           <Control width="5" />
-          <Button name="cancel_btn" width="60" text="编辑" hottextcolor="#ffff0000" pushedtextcolor="#ff000000" bkcolor="#ffe1e1e1" bordercolor="#ffaaaaaa" bordersize="1" />
+          <Button name="update_btn" width="60" text="编辑" hottextcolor="#ffff0000" pushedtextcolor="#ff000000" bkcolor="#ffe1e1e1" bordercolor="#ffaaaaaa" bordersize="1" />
           <Control width="5" />
-          <Button name="cancel_btn" width="60" text="删除" hottextcolor="#ffff0000" pushedtextcolor="#ff000000" bkcolor="#ffe1e1e1" bordercolor="#ffaaaaaa" bordersize="1" />
+          <Button name="del_btn" width="60" text="删除" hottextcolor="#ffff0000" pushedtextcolor="#ff000000" bkcolor="#ffe1e1e1" bordercolor="#ffaaaaaa" bordersize="1" />
         </HorizontalLayout>
       </VerticalLayout>
     </Container>

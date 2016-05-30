@@ -1,5 +1,7 @@
 #include "advanced_wnd.h"
 #include "manager.h"
+#include "res_singleton.h"
+#include "edit_more_wnd.h"
 
 AdvancedWnd::AdvancedWnd()
   : play_name_(_T(""))
@@ -10,8 +12,6 @@ AdvancedWnd::AdvancedWnd(LPCTSTR play_name)
 {
   AdvancedWnd();
   play_name_ = play_name;
-  Manager *manager = Manager::GetInstance();
-  XmlManager *xml_manager = manager->GetXmlManager();
 }
 
 AdvancedWnd::~AdvancedWnd()
@@ -20,17 +20,21 @@ AdvancedWnd::~AdvancedWnd()
 
 LRESULT AdvancedWnd::OnInit()
 {
-  PDUI_LIST ip_list = static_cast<PDUI_LIST>(m_PaintManager.FindControl(_T("ip_list")));
-  PDUI_LISTTEXTELEM elem = new CListTextElementUI;
-  elem->SetText(0, _T("10.18.3.63"));
-  ip_list->Add(elem);
+  FlushList();
 
   return 0;
 }
 
-CDuiString AdvancedWnd::GetItemText(CControlUI * pList, int iItem, int iSubItem)
+void AdvancedWnd::OnUserClick(const TNotifyUI & msg)
 {
-  return CDuiString();
+  if (msg.pSender->GetName() == _T("add_btn")) {
+    EditMoreWnd more_wnd;
+    more_wnd.DoModal(*this);
+  } else if (msg.pSender->GetName() == _T("update_btn")) {
+
+  } else if (msg.pSender->GetName() == _T("del_btn")) {
+
+  }
 }
 
 BOOL AdvancedWnd::DoModal(HWND pa_hwnd)
@@ -40,4 +44,20 @@ BOOL AdvancedWnd::DoModal(HWND pa_hwnd)
   CenterWindow(pa_hwnd);
 
   return ShowModal() != 0;
+}
+
+void AdvancedWnd::FlushList()
+{
+  ResSingleton* res = ResSingleton::GetInstance();
+  XmlManager* xml_manager = res->GetXmlManager();
+  NETSTRUCT net_info = xml_manager->GetNodeInfo(play_name_);
+
+  PDUI_LIST ip_list = static_cast<PDUI_LIST>(m_PaintManager.FindControl(_T("ip_list")));
+  PDUI_LISTTEXTELEM elem;
+  for (auto iter : net_info.more_ip_mask) {
+    elem = new CListTextElementUI;
+    ip_list->Add(elem);
+    elem->SetText(0, iter.first);
+    elem->SetText(1, iter.second);
+  }
 }

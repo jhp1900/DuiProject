@@ -2,25 +2,13 @@
 #include "add_new_play_wnd.h"
 #include "advanced_wnd.h"
 #include <shellapi.h>
-
-Manager* Manager::instance_ = nullptr;
+#include "res_singleton.h"
 
 Manager::Manager() 
 {
-  xml_manager_.LoadFile(CPaintManagerUI::GetInstancePath(), _T("config.xml"));
-}
-
-Manager * Manager::GetInstance()
-{
-  return instance_ ? instance_ : (instance_ = new Manager());
-}
-
-void Manager::DestroyInstance()
-{
-  if (instance_) {
-    delete instance_;
-    instance_ = nullptr;
-  }
+  ResSingleton* res = ResSingleton::GetInstance();
+  xml_manager_ = res->GetXmlManager();
+  xml_manager_->LoadFile(CPaintManagerUI::GetInstancePath(), _T("config.xml"));
 }
 
 void Manager::Notify(TNotifyUI & msg)
@@ -97,14 +85,15 @@ void Manager::OnClickAddPlayBtn()
     return;
 
   net_info.play_name = play_name;
-  xml_manager_.InsertNode(net_info);
+  xml_manager_->InsertNode(net_info);
 
   FlushPlayList();
 }
 
 void Manager::OnClickAdvanced()
 {
-  AdvancedWnd adv_wnd(_T("Xjh"));
+  PDUI_COMBO play_list = static_cast<PDUI_COMBO>(m_PaintManager.FindControl(_T("play_list")));
+  AdvancedWnd adv_wnd(play_list->GetText());
   adv_wnd.DoModal(*this);
 }
 
@@ -116,7 +105,7 @@ BOOL Manager::GetPlayInfo(NETSTRUCT & net_info)
   }
 
   for (int i = 0; i != 5; ++i) {
-    net_info.SetVar(xml_manager_.net_attrs_[i], ip_ui_vector_[i]->GetText());
+    net_info.SetVar(xml_manager_->net_attrs_[i], ip_ui_vector_[i]->GetText());
   }
 
   return TRUE;
@@ -129,7 +118,7 @@ void Manager::FlushPlayList()
     play_list->RemoveAt(1);
 
   PDUI_LISTLABELELEM list_elem;
-  for (auto play_name : xml_manager_.GetAllNodeName()) {
+  for (auto play_name : xml_manager_->GetAllNodeName()) {
     list_elem = new CListLabelElementUI;
     list_elem->SetText(play_name);
     play_list->Add(list_elem);
@@ -146,9 +135,9 @@ void Manager::OnSelectPlay(TNotifyUI & msg)
     return;
   }
 
-  NETSTRUCT net_info = xml_manager_.GetNodeInfo(play_name);
+  NETSTRUCT net_info = xml_manager_->GetNodeInfo(play_name);
   for (int i = 0; i != 5; ++i) {
-    ip_ui_vector_[i]->SetText(net_info.GetVar(xml_manager_.net_attrs_[i]));
+    ip_ui_vector_[i]->SetText(net_info.GetVar(xml_manager_->net_attrs_[i]));
   }
 }
 
@@ -167,7 +156,7 @@ void Manager::StartPlay()
     command_lines.push_back(set_ip_line);
     command_lines.push_back(set_dns_line);
   } else {
-    NETSTRUCT net_info = xml_manager_.GetNodeInfo(play_list->GetText());
+    NETSTRUCT net_info = xml_manager_->GetNodeInfo(play_list->GetText());
 
     set_ip_line = set_ip_line 
       + _T("static ") + net_info.ip_address 
@@ -224,4 +213,5 @@ BOOL Manager::ExcuteCommand(vector<CDuiString> command_lien_s)
 
 void Manager::OnClickTestBtn()
 {
+
 }

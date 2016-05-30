@@ -19,9 +19,6 @@ public:
     DUIMSG_HANDLER(kAM_InitCustomControlMsg, OnInitCustomControlMsg)
   END_DUIMSG_MAP()
 
-  static Manager* GetInstance();
-  static void DestroyInstance();
-
   virtual CDuiString GetSkinFolder() override { return _T("skin"); }
   virtual CDuiString GetSkinFile() override { return _T("manager.xml"); }
   virtual LPCTSTR GetWindowClassName(void) const override { return _T("Manager"); }
@@ -44,11 +41,7 @@ private:
   BOOL ExcuteCommand(vector<CDuiString> command_lien_s);     // 执行一组命令集
   void OnClickTestBtn();
 
-public:
-  XmlManager* GetXmlManager() { return &xml_manager_; }
-
 private:
-  static Manager *instance_;    // 单例模式的实例
-  XmlManager xml_manager_;
+  XmlManager *xml_manager_;
   vector<IpControlUI *> ip_ui_vector_;
 };
