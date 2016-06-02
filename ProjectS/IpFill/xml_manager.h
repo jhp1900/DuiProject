@@ -25,11 +25,16 @@ public:
   BOOL IsLoad() const { return is_load_; }
   BOOL LoadFile(CDuiString file_path, CDuiString file_name);
   void InsertNode(NETSTRUCT net_info);
+  void InsertNode(pugi::xml_node pa_node, pair<string, LPCTSTR> param1, pair<string, LPCTSTR> param2);
   NETSTRUCT GetNodeInfo(LPCTSTR name);
   pugi::xml_node GetNode(LPCTSTR name);
+  pugi::xml_node GetNode(pugi::xml_node pa_node, int index);
   vector<NETSTRUCT> GetAllNode();
   vector<CDuiString> GetAllNodeName();
   BOOL RemoveNode(pugi::xml_node node);
+  BOOL RemoveNode(pugi::xml_node pa_node, int index);
+  BOOL IsHave(pugi::xml_node pa_node, pair<string, LPCTSTR> param1, pair<string, LPCTSTR> param2);
+  BOOL UpdateNode(pugi::xml_node pa_node, int index, pair<string, LPCTSTR> param1, pair<string, LPCTSTR> param2);
 
 public:
   char * WideToMulti(CDuiString wide, char * multi);    // ¿í×Ö·û×ª¶à×Ö½Ú

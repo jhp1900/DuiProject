@@ -16,7 +16,7 @@ public:
 	WindowImplBase() {}
 	virtual ~WindowImplBase() {}
 
-	virtual LRESULT OnInit() { return 0; };		// 窗体初始化
+	virtual LRESULT OnInit() { return 0; }  		// 窗体初始化
 	virtual void OnFinalMessage(HWND hWnd) override;	// 最后的处理，一般是释放资源使用
 	virtual void Notify(TNotifyUI& msg) override;		// DuiLib 控件消息路由
 	virtual BOOL OnSysClick(TNotifyUI& msg);			// 系统按钮点击响应

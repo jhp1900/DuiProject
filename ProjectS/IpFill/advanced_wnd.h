@@ -19,6 +19,9 @@ public:
 
 private:
   void FlushList();
+  void OnClickAddBtn();
+  void OnClickUpdateBtn();
+  void OnClickDelBtn();
 
 private:
   CDuiString play_name_;

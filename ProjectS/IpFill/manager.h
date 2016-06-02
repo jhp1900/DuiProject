@@ -33,6 +33,7 @@ private:
   LRESULT OnLogCloseMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandled);
   void OnClickAddPlayBtn();
   void OnClickAdvanced();
+  void OnClickDelBtn();
   BOOL GetPlayInfo(NETSTRUCT &node_info);
   void FlushPlayList();
   void OnSelectPlay(TNotifyUI &msg);

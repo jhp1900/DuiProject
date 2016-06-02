@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Window size="300,230" caption="0,0,0,30">
+<Window size="310,240" caption="0,0,0,30">
   <Font name="微软雅黑" size="16" bold="true" italic="false" />
   <Font name="微软雅黑" size="12" bold="false" italic="false" default="true" />
   <VerticalLayout bkcolor="#ff29b8cc" inset="2,2,2,2">
@@ -8,8 +8,8 @@
       <Button name="closebtn" width="26" text="x" font="0" hotbkcolor="#ffcc0000" />
     </HorizontalLayout>
     <Container bkcolor="#fffafafa" inset="20,10,20,10">
-      <VerticalLayout bkcolor="#fff3f3f3" inset="10,10,10,10">
-        <List name="ip_list" bkcolor="#ffeaeaea" itemalign="center">
+      <VerticalLayout bkcolor="#fff3f3f3" inset="10,5,10,10">
+        <List name="ip_list" bkcolor="#ffeaeaea" itemalign="center" vscrollbar="true">
           <ListHeader bkcolor="#ffe2e2e2">
             <ListHeaderItem text="IP地址" />
             <ListHeaderItem text="子网掩码" />

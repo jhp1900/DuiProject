@@ -51,7 +51,7 @@ void Manager::OnUserClick(const TNotifyUI& msg)
   } else if (msg.pSender->GetName() == _T("update_play_btn")) {
 
   } else if (msg.pSender->GetName() == _T("del_play_btn")) {
-
+    OnClickDelBtn();
   } else if (msg.pSender->GetName() == _T("add_play_btn")) {
     OnClickAddPlayBtn();
   } else if (msg.pSender->GetName() == _T("test_btn")) {      // 测试内容
@@ -95,6 +95,22 @@ void Manager::OnClickAdvanced()
   PDUI_COMBO play_list = static_cast<PDUI_COMBO>(m_PaintManager.FindControl(_T("play_list")));
   AdvancedWnd adv_wnd(play_list->GetText());
   adv_wnd.DoModal(*this);
+}
+
+void Manager::OnClickDelBtn()
+{
+  PDUI_COMBO play_list = static_cast<PDUI_COMBO>(m_PaintManager.FindControl(_T("play_list")));
+  LPCTSTR play_name = play_list->GetText();
+  if (0 == lstrcmp(play_name, _T("Auto"))) {
+    MessageBox(nullptr, _T("自动获取方案不能删除哦，亲！"), _T("Error"), MB_OK);
+    return;
+  }
+  if (xml_manager_->RemoveNode(xml_manager_->GetNode(play_name))) {
+    MessageBox(nullptr, _T("方案删除成功!"), _T("Message"), MB_OK);
+    FlushPlayList();
+  } else {
+    MessageBox(nullptr, _T("方案删除失败!"), _T("Message"), MB_OK);
+  }
 }
 
 BOOL Manager::GetPlayInfo(NETSTRUCT & net_info)

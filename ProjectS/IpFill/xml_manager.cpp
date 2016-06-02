@@ -96,6 +96,15 @@ void XmlManager::InsertNode(NETSTRUCT net_info)
   file_.save_file(path_and_name_.GetData());
 }
 
+void XmlManager::InsertNode(pugi::xml_node pa_node, pair<string, LPCTSTR> param1, pair<string, LPCTSTR> param2)
+{
+  char temp[MAX_PATH] = { 0 };
+  pugi::xml_node son_node = pa_node.append_child("AddIPChild");
+  son_node.append_attribute(param1.first.c_str()) = WideToMulti(param1.second, temp);
+  son_node.append_attribute(param2.first.c_str()) = WideToMulti(param2.second, temp);
+  file_.save_file(path_and_name_.GetData());
+}
+
 NETSTRUCT XmlManager::GetNodeInfo(LPCTSTR name)
 {
   NETSTRUCT net_info;
@@ -137,6 +146,17 @@ pugi::xml_node XmlManager::GetNode(LPCTSTR name)
   return pugi::xml_node();
 }
 
+pugi::xml_node XmlManager::GetNode(pugi::xml_node pa_node, int index)
+{
+  int i = 0;
+  for (auto iter : pa_node.children()) {
+    if (i++ == index)
+      return iter;
+  }
+
+  return pugi::xml_node();
+}
+
 vector<NETSTRUCT> XmlManager::GetAllNode()
 {
   return vector<NETSTRUCT>();
@@ -155,9 +175,50 @@ BOOL XmlManager::RemoveNode(pugi::xml_node node)
 {
   pugi::xml_node pa_node = node.parent();
   BOOL ret = pa_node.remove_child(node);
+  ret = ret && file_.save_file(path_and_name_.GetData());
 
-  file_.save_file(path_and_name_.GetData());
   return ret;
+}
+
+BOOL XmlManager::RemoveNode(pugi::xml_node pa_node, int index)
+{
+  int i = 0;
+  for (auto iter : pa_node.children()) {
+    if (i++ == index) {
+      BOOL ret = pa_node.remove_child(iter);
+      ret = ret && file_.save_file(path_and_name_.GetData());
+      return ret;
+    }
+  }
+
+  return FALSE;
+}
+
+BOOL XmlManager::IsHave(pugi::xml_node pa_node, pair<string, LPCTSTR> param1, pair<string, LPCTSTR> param2)
+{
+  for (auto iter : pa_node.children()) {
+    string str1 = iter.attribute(param1.first.c_str()).as_string();
+    string str2 = iter.attribute(param2.first.c_str()).as_string();
+    if (MultiToWide(str1) == param1.second && MultiToWide(str2) == param2.second)
+      return TRUE;
+  }
+
+  return FALSE;
+}
+
+BOOL XmlManager::UpdateNode(pugi::xml_node pa_node, int index, pair<string, LPCTSTR> param1, pair<string, LPCTSTR> param2)
+{
+  int i = 0;
+  for (auto iter : pa_node.children()) {
+    char temp[MAX_PATH] = { 0 };
+    if (i++ == index) {
+      iter.attribute(param1.first.c_str()) = WideToMulti(param1.second, temp);
+      iter.attribute(param2.first.c_str()) = WideToMulti(param2.second, temp);
+      return file_.save_file(path_and_name_.GetData());
+    }
+  }
+
+  return FALSE;
 }
 
 /* （工具函数） 宽字节 转 多字节 */
