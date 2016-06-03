@@ -11,15 +11,11 @@
 		</MoreIP>
 	</Play>
 	<Play name="KINGHOO_DEMO">
-		<IPAddress value="10.18.3.62" />
+		<IPAddress value="18.18.8.123" />
 		<Netmask value="255.255.255.0" />
-		<Gateway value="10.18.3.1" />
+		<Gateway value="18.18.8.1" />
 		<FirstDNS value="218.6.200.139" />
 		<SecondDNS value="61.139.2.69" />
-		<MoreIP>
-			<AddIPChild ip="192.0.0.211" netmask="255.255.255.0" />
-			<AddIPChild ip="192.0.0.212" netmask="255.255.255.0" />
-			<AddIPChild ip="192.0.0.213" netmask="255.255.255.0" />
-		</MoreIP>
+		<MoreIP />
 	</Play>
 </Info>

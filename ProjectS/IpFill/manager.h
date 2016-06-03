@@ -34,6 +34,8 @@ private:
   void OnClickAddPlayBtn();
   void OnClickAdvanced();
   void OnClickDelBtn();
+  void OnClickEditBtn();
+  void OnClickUpdateBtn();
   BOOL GetPlayInfo(NETSTRUCT &node_info);
   void FlushPlayList();
   void OnSelectPlay(TNotifyUI &msg);

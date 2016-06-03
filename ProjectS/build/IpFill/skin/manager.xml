@@ -55,7 +55,7 @@
           </HorizontalLayout>
           <Control />
           <HorizontalLayout height="20">
-            <Button name="test_btn" width="45" text="测试" hottextcolor="#ffff0000" pushedtextcolor="#ff000000" bkcolor="#ffe1e1e1" bordercolor="#ffaaaaaa" bordersize="1" />
+            <Button name="test_btn" width="45" text="测试" visible="false" hottextcolor="#ffff0000" pushedtextcolor="#ff000000" bkcolor="#ffe1e1e1" bordercolor="#ffaaaaaa" bordersize="1" />
             <Control />
             <Button name="advanced_btn" width="45" text="高级" textcolor="#ff0000ff" hottextcolor="#ffff0000" pushedtextcolor="#ff000000" bkcolor="#ffe1e1e1" bordercolor="#ffaaaaaa" bordersize="1" />
           </HorizontalLayout>
@@ -64,7 +64,8 @@
       </VerticalLayout>
       <Control height="10" />
       <HorizontalLayout height="25" inset="10,0,10,0">
-        <Button name="update_play_btn" text="修改" hottextcolor="#ffff0000" pushedtextcolor="#ff000000" bkcolor="#ffe1e1e1" bordercolor="#ffaaaaaa" bordersize="1" />
+        <Button name="edit_play_btn" text="编辑" hottextcolor="#ffff0000" pushedtextcolor="#ff000000" bkcolor="#ffe1e1e1" bordercolor="#ffaaaaaa" bordersize="1" />
+        <Button name="update_play_btn" text="保存" visible="false" hottextcolor="#ffff0000" pushedtextcolor="#ff000000" bkcolor="#ffe1e1e1" bordercolor="#ffaaaaaa" bordersize="1" />
         <Control width="10" />
         <Button name="del_play_btn" text="删除" hottextcolor="#ffff0000" pushedtextcolor="#ff000000" bkcolor="#ffe1e1e1" bordercolor="#ffaaaaaa" bordersize="1" />
         <Control width="10" />

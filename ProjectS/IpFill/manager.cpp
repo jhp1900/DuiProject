@@ -48,8 +48,10 @@ void Manager::OnUserClick(const TNotifyUI& msg)
     StartPlay();
   } else if (msg.pSender->GetName() == _T("advanced_btn")) {
     OnClickAdvanced();
+  } else if(msg.pSender->GetName() == _T("edit_play_btn")) {
+    OnClickEditBtn();
   } else if (msg.pSender->GetName() == _T("update_play_btn")) {
-
+    OnClickUpdateBtn();
   } else if (msg.pSender->GetName() == _T("del_play_btn")) {
     OnClickDelBtn();
   } else if (msg.pSender->GetName() == _T("add_play_btn")) {
@@ -111,6 +113,38 @@ void Manager::OnClickDelBtn()
   } else {
     MessageBox(nullptr, _T("方案删除失败!"), _T("Message"), MB_OK);
   }
+}
+
+void Manager::OnClickEditBtn()
+{
+  for (auto iter : ip_ui_vector_) {
+    iter->SetStateEdit(true);
+  }
+  m_PaintManager.FindControl(_T("edit_play_btn"))->SetVisible(false);
+  m_PaintManager.FindControl(_T("update_play_btn"))->SetVisible(true);
+}
+
+void Manager::OnClickUpdateBtn()
+{
+  NETSTRUCT net_info;
+  net_info.play_name = m_PaintManager.FindControl(_T("play_list"))->GetText();
+  if (!GetPlayInfo(net_info)) {
+    MessageBox(nullptr, _T("方案信息不合理哦，亲！"), _T("Message"), MB_OK);
+    return;
+  }
+
+  if (xml_manager_->UpdateNode(net_info)) {
+    MessageBox(nullptr, _T("方案修改成功！"), _T("Message"), MB_OK);
+  } else {
+    MessageBox(nullptr, _T("方案修改失败了哦，亲！"), _T("ERROR"), MB_OK);
+    return;
+  }
+
+  for (auto iter : ip_ui_vector_) {
+    iter->SetStateEdit(false);
+  }
+  m_PaintManager.FindControl(_T("update_play_btn"))->SetVisible(false);
+  m_PaintManager.FindControl(_T("edit_play_btn"))->SetVisible(true);
 }
 
 BOOL Manager::GetPlayInfo(NETSTRUCT & net_info)

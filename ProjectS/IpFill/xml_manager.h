@@ -26,6 +26,7 @@ public:
   BOOL LoadFile(CDuiString file_path, CDuiString file_name);
   void InsertNode(NETSTRUCT net_info);
   void InsertNode(pugi::xml_node pa_node, pair<string, LPCTSTR> param1, pair<string, LPCTSTR> param2);
+  BOOL UpdateNode(NETSTRUCT net_info);
   NETSTRUCT GetNodeInfo(LPCTSTR name);
   pugi::xml_node GetNode(LPCTSTR name);
   pugi::xml_node GetNode(pugi::xml_node pa_node, int index);

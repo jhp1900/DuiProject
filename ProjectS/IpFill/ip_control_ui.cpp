@@ -66,3 +66,14 @@ BOOL IpControlUI::IsReasonable()
 
   return TRUE;
 }
+
+void IpControlUI::SetStateEdit(BOOL state)
+{
+  for (auto iter : edit_vector_) {
+    iter->SetEnabled(state);
+  }
+  if(state)
+    edit_vector_[0]->GetParent()->SetBkColor(0xffffffff);
+  else 
+    edit_vector_[0]->GetParent()->SetBkColor(0x00aaaaaa);
+}

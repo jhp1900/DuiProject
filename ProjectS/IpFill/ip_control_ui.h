@@ -21,6 +21,7 @@ public:
 
 public:
   BOOL IsReasonable();
+  void SetStateEdit(BOOL state);
 
 private:
   vector<PDUI_EDIT> edit_vector_;

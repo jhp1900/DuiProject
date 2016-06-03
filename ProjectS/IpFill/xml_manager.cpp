@@ -105,6 +105,22 @@ void XmlManager::InsertNode(pugi::xml_node pa_node, pair<string, LPCTSTR> param1
   file_.save_file(path_and_name_.GetData());
 }
 
+BOOL XmlManager::UpdateNode(NETSTRUCT net_info)
+{
+  if (!is_load_)
+    return false;
+
+  pugi::xml_node pa_node = GetNode(net_info.play_name);
+  pugi::xml_node son_node;
+  char temp[MAX_PATH] = { 0 };
+  for (auto iter : net_attrs_) {
+    son_node = pa_node.child(WideToMulti(iter, temp));
+    son_node.attribute("value") = WideToMulti(net_info.GetVar(iter), temp);
+  }
+
+  return file_.save_file(path_and_name_.GetData());
+}
+
 NETSTRUCT XmlManager::GetNodeInfo(LPCTSTR name)
 {
   NETSTRUCT net_info;

@@ -43,7 +43,9 @@ LRESULT EditMoreWnd::OnInit()
   IpControlUI *netmask = static_cast<IpControlUI *>(m_PaintManager.FindControl(_T("edit_netmask")));
 
   ipaddr->SetText(ipaddr_);
+  ipaddr->SetStateEdit(true);
   netmask->SetText(netmask_);
+  netmask->SetStateEdit(true);
 
   return LRESULT();
 }
