@@ -3,6 +3,7 @@
 #include "advanced_wnd.h"
 #include <shellapi.h>
 #include "res_singleton.h"
+#include <NetCon.h>
 
 Manager::Manager() 
 {
@@ -263,5 +264,24 @@ BOOL Manager::ExcuteCommand(vector<CDuiString> command_lien_s)
 
 void Manager::OnClickTestBtn()
 {
+  INetConnectionManager *net_manager = nullptr;
+  INetConnection *net_conn = nullptr;
+  IEnumNetConnection *net_enum = nullptr;
+  ULONG celt_fetched;
 
+  setlocale(LC_CTYPE, "");
+  CoInitialize(NULL);
+  CoCreateInstance(CLSID_ConnectionManager, NULL, CLSCTX_SERVER, IID_INetConnectionManager, (void**)&net_manager);
+  if (net_manager == nullptr) {
+    MessageBox(nullptr, _T("ÍøÂç¼ì²âÊ§°Ü£¡"), _T("ERROR"), MB_OK);
+    return;
+  }
+  net_manager->EnumConnections(NCME_DEFAULT, &net_enum);
+  while (net_enum->Next(1, &net_conn, &celt_fetched) == S_OK)
+  {
+
+  }
+
+  NETCON_PROPERTIES net_proper;
+  
 }
