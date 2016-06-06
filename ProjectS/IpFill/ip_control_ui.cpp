@@ -42,9 +42,7 @@ CDuiString IpControlUI::GetText() const
     ret += _T(".");
   }
 
-  ret = ret.Mid(0, ret.GetLength() - 1);
-
-  return ret;
+  return ret.Mid(0, ret.GetLength() - 1);
 }
 
 void IpControlUI::SetText(LPCTSTR pstrText)

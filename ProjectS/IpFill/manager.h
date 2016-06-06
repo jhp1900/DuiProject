@@ -15,10 +15,6 @@ public:
     DUICONTROL_CREATE(_T("IpControlLayout"), IpControlUI)
     END_DUICONTROL_CREATE()
 
-  BEGIN_DUIMSG_MAP(Manager)
-    DUIMSG_HANDLER(kAM_InitCustomControlMsg, OnInitCustomControlMsg)
-  END_DUIMSG_MAP()
-
   virtual CDuiString GetSkinFolder() override { return _T("skin"); }
   virtual CDuiString GetSkinFile() override { return _T("manager.xml"); }
   virtual LPCTSTR GetWindowClassName(void) const override { return _T("Manager"); }
@@ -29,8 +25,6 @@ private:
   virtual void OnUserClick(const TNotifyUI& msg) override;
 
 private:
-  LRESULT OnInitCustomControlMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandled);
-  LRESULT OnLogCloseMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandled);
   void OnClickAddPlayBtn();
   void OnClickAdvanced();
   void OnClickDelBtn();
@@ -38,10 +32,15 @@ private:
   void OnClickUpdateBtn();
   BOOL GetPlayInfo(NETSTRUCT &node_info);
   void FlushPlayList();
+  void EnumNetName();
+  void SetNetName(LPCTSTR net_name);
   void OnSelectPlay(TNotifyUI &msg);
   void StartPlay();
   BOOL ExcuteCommand(LPCTSTR command_lien);               // 执行一个命令
   BOOL ExcuteCommand(vector<CDuiString> command_lien_s);     // 执行一组命令集
+  void SetControlEnabled(BOOL enable);
+  CDuiString MakeComLine(vector<CDuiString> prarm);
+  LPCTSTR GetNetName();
   void OnClickTestBtn();
 
 private:

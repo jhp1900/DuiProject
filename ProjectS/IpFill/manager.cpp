@@ -23,8 +23,9 @@ void Manager::Notify(TNotifyUI & msg)
 
 LRESULT Manager::OnInit()
 {
-  /* 读取所有的方案名，并填入方案名下来列表中 */
-  FlushPlayList();
+  FlushPlayList();    // 读取所有的方案名，并填入方案名下来列表中
+
+  EnumNetName();      // 枚举所有网卡的网络名称
 
   /* 初始化收录所有 ip地址 控件 */
   vector<LPCTSTR> all_ip_ui_str = {
@@ -62,17 +63,6 @@ void Manager::OnUserClick(const TNotifyUI& msg)
   }
 }
 
-LRESULT Manager::OnInitCustomControlMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandled)
-{
-  return LRESULT();
-}
-
-LRESULT Manager::OnLogCloseMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL & bHandled)
-{
-  Close();
-  return LRESULT();
-}
-
 void Manager::OnClickAddPlayBtn()
 {
   NETSTRUCT net_info;
@@ -80,6 +70,8 @@ void Manager::OnClickAddPlayBtn()
     MessageBox(nullptr, _T("方案信息不合理哦，亲！"), _T("Message"), MB_OK);
     return;
   }
+
+  net_info.net_name = m_PaintManager.FindControl(_T("net_name_list"))->GetText();
 
   AddNewPlayWnd new_play;
   new_play.DoModal(*this);
@@ -91,6 +83,7 @@ void Manager::OnClickAddPlayBtn()
   xml_manager_->InsertNode(net_info);
 
   FlushPlayList();
+  SetControlEnabled(false);
 }
 
 void Manager::OnClickAdvanced()
@@ -105,7 +98,7 @@ void Manager::OnClickDelBtn()
   PDUI_COMBO play_list = static_cast<PDUI_COMBO>(m_PaintManager.FindControl(_T("play_list")));
   LPCTSTR play_name = play_list->GetText();
   if (0 == lstrcmp(play_name, _T("Auto"))) {
-    MessageBox(nullptr, _T("自动获取方案不能删除哦，亲！"), _T("Error"), MB_OK);
+    MessageBox(nullptr, _T("【Auto】方案不能删除哦，亲！"), _T("Error"), MB_OK);
     return;
   }
   if (xml_manager_->RemoveNode(xml_manager_->GetNode(play_name))) {
@@ -118,17 +111,18 @@ void Manager::OnClickDelBtn()
 
 void Manager::OnClickEditBtn()
 {
-  for (auto iter : ip_ui_vector_) {
-    iter->SetStateEdit(true);
-  }
-  m_PaintManager.FindControl(_T("edit_play_btn"))->SetVisible(false);
-  m_PaintManager.FindControl(_T("update_play_btn"))->SetVisible(true);
+  SetControlEnabled(true);
 }
 
 void Manager::OnClickUpdateBtn()
 {
   NETSTRUCT net_info;
   net_info.play_name = m_PaintManager.FindControl(_T("play_list"))->GetText();
+  if (net_info.play_name == _T("Auto")) {
+    MessageBox(nullptr, _T("【Auto】方案不能保存，请选择【存为新方案】"), _T("ERROR"), MB_OK);
+    return;
+  }
+  net_info.net_name = m_PaintManager.FindControl(_T("net_name_list"))->GetText();
   if (!GetPlayInfo(net_info)) {
     MessageBox(nullptr, _T("方案信息不合理哦，亲！"), _T("Message"), MB_OK);
     return;
@@ -140,12 +134,7 @@ void Manager::OnClickUpdateBtn()
     MessageBox(nullptr, _T("方案修改失败了哦，亲！"), _T("ERROR"), MB_OK);
     return;
   }
-
-  for (auto iter : ip_ui_vector_) {
-    iter->SetStateEdit(false);
-  }
-  m_PaintManager.FindControl(_T("update_play_btn"))->SetVisible(false);
-  m_PaintManager.FindControl(_T("edit_play_btn"))->SetVisible(true);
+  SetControlEnabled(false);
 }
 
 BOOL Manager::GetPlayInfo(NETSTRUCT & net_info)
@@ -176,13 +165,58 @@ void Manager::FlushPlayList()
   }
 }
 
+void Manager::EnumNetName()
+{
+  INetConnectionManager *net_manager = nullptr;
+  INetConnection *net_conn = nullptr;
+  IEnumNetConnection *net_enum = nullptr;
+  ULONG celt_fetched;
+
+  setlocale(LC_CTYPE, "");
+  CoInitialize(NULL);
+  CoCreateInstance(CLSID_ConnectionManager, NULL, CLSCTX_SERVER, IID_INetConnectionManager, (void**)&net_manager);
+  if (net_manager == nullptr) {
+    MessageBox(nullptr, _T("网络检测失败！"), _T("ERROR"), MB_OK);
+    return;
+  }
+
+  net_manager->EnumConnections(NCME_DEFAULT, &net_enum);
+  NETCON_PROPERTIES *net_proper;
+  PDUI_COMBO net_name_list = static_cast<PDUI_COMBO>(m_PaintManager.FindControl(_T("net_name_list")));
+  PDUI_LISTLABELELEM list_elem;
+  while (net_enum->Next(1, &net_conn, &celt_fetched) == S_OK)
+  {
+    net_conn->GetProperties(&net_proper);
+    list_elem = new CListLabelElementUI;
+    list_elem->SetText(net_proper->pszwName);
+    net_name_list->Add(list_elem);
+  }
+  net_name_list->SelectItem(0);
+}
+
+void Manager::SetNetName(LPCTSTR net_name)
+{
+  PDUI_COMBO net_name_list = static_cast<PDUI_COMBO>(m_PaintManager.FindControl(_T("net_name_list")));
+  int count = net_name_list->GetCount();
+  for (int i = 0; i < count; ++i) {
+    if (net_name_list->GetItemAt(i)->GetText() == net_name) {
+      net_name_list->SelectItem(i);
+      return;
+    }
+  }
+
+//  MessageBox(nullptr, _T(""), _T(""), MB_OK);
+}
+
 void Manager::OnSelectPlay(TNotifyUI & msg)
 {
+  SetControlEnabled(false);
   CDuiString play_name = msg.pSender->GetText();
   if (play_name == _T("Auto")) {
     for (auto iter : ip_ui_vector_) {
       iter->SetText(_T("..."));
     }
+    m_PaintManager.FindControl(_T("net_name_list"))->SetEnabled(true);  // Auto 状态下，网络名称列表可用
     return;
   }
 
@@ -190,42 +224,67 @@ void Manager::OnSelectPlay(TNotifyUI & msg)
   for (int i = 0; i != 5; ++i) {
     ip_ui_vector_[i]->SetText(net_info.GetVar(xml_manager_->net_attrs_[i]));
   }
+  SetNetName(net_info.net_name);
 }
 
 void Manager::StartPlay()
 {
   vector<CDuiString> command_lines;
-  CDuiString set_ip_line = _T("/c netsh interface ip set address \"以太网\" ");
-  CDuiString set_dns_line = _T("/c netsh interface ip set dnsservers \"以太网\" ");
-  CDuiString add_ip_line = _T("/c netsh interface ip add address \"以太网\" ");
-  CDuiString add_dns_line = _T("/c netsh interface ip add dnsservers \"以太网\" ");
   PDUI_COMBO play_list = static_cast<PDUI_COMBO>(m_PaintManager.FindControl(_T("play_list")));
+  vector<CDuiString> prarm;
 
   if (play_list->GetText() == _T("Auto")) {
-    set_ip_line += _T("dhcp");
-    set_dns_line += _T("dhcp");
-    command_lines.push_back(set_ip_line);
-    command_lines.push_back(set_dns_line);
+    /* 自动获取 IP 地址 */
+    prarm.clear();
+    prarm.push_back(_T("set address "));  // 设置类型
+    prarm.push_back(GetNetName());
+    prarm.push_back(_T("dhcp"));
+    command_lines.push_back(MakeComLine(prarm));
+
+    /* 自动获取 DNS */
+    prarm.clear();
+    prarm.push_back(_T("set dnsservers "));  // 设置类型
+    prarm.push_back(GetNetName());
+    prarm.push_back(_T("dhcp"));
+    command_lines.push_back(MakeComLine(prarm));
   } else {
     NETSTRUCT net_info = xml_manager_->GetNodeInfo(play_list->GetText());
 
-    set_ip_line = set_ip_line 
-      + _T("static ") + net_info.ip_address 
-      + _T(" ") + net_info.netmask 
-      + _T(" ") + net_info.gateway;
-    command_lines.push_back(set_ip_line);
+    /* 设置 IP 信息 */
+    prarm.clear();
+    prarm.push_back(_T("set address "));
+    prarm.push_back(GetNetName());
+    prarm.push_back(_T("static "));
+    prarm.push_back(net_info.ip_address + _T(" "));
+    prarm.push_back(net_info.netmask + _T(" "));
+    prarm.push_back(net_info.gateway);
+    command_lines.push_back(MakeComLine(prarm)); 
 
-    set_dns_line = set_dns_line + _T("static ") + net_info.firstDNS;
-    command_lines.push_back(set_dns_line);
+    /* 设置 DNS 信息 */
+    prarm.clear();
+    prarm.push_back(_T("set dnsservers "));
+    prarm.push_back(GetNetName());
+    prarm.push_back(_T("static "));
+    prarm.push_back(net_info.firstDNS);
+    command_lines.push_back(MakeComLine(prarm));
 
+    /* 拥有多个 IP 的情况 */
     for (auto iter : net_info.more_ip_mask) {
-      command_lines.push_back(add_ip_line + iter.first + _T(" ") + iter.second);
+      prarm.clear();
+      prarm.push_back(_T("add address "));
+      prarm.push_back(GetNetName());
+      prarm.push_back(iter.first + _T(" "));
+      prarm.push_back(iter.second);
+      command_lines.push_back(MakeComLine(prarm));
     }
 
+    /* 拥有 备用DNS 的情况 */
     if (net_info.secondDNS != _T("")) {
-      add_dns_line += net_info.secondDNS;
-      command_lines.push_back(add_dns_line);
-      int a = 0;
+      prarm.clear();
+      prarm.push_back(_T("add dnsservers "));
+      prarm.push_back(GetNetName());
+      prarm.push_back(net_info.secondDNS);
+      command_lines.push_back(MakeComLine(prarm));
     }
   }
 
@@ -262,26 +321,37 @@ BOOL Manager::ExcuteCommand(vector<CDuiString> command_lien_s)
   return TRUE;
 }
 
+void Manager::SetControlEnabled(BOOL enable)
+{
+  for (auto iter : ip_ui_vector_) {
+    iter->SetStateEdit(enable);
+  }
+  m_PaintManager.FindControl(_T("net_name_list"))->SetEnabled(enable);
+  m_PaintManager.FindControl(_T("update_play_btn"))->SetVisible(enable);  // 可编辑状态时，编辑按钮隐藏
+  m_PaintManager.FindControl(_T("edit_play_btn"))->SetVisible(!enable);
+}
+
+CDuiString Manager::MakeComLine(vector<CDuiString> prarm)
+{
+  CDuiString ret = _T("/c netsh interface ip ");
+  for (auto iter : prarm) {
+    ret += iter;
+  }
+  return ret;
+}
+
+LPCTSTR Manager::GetNetName()
+{
+  CDuiString ret = _T("\"");
+  PDUI_CONTROL play_list = m_PaintManager.FindControl(_T("play_list"));
+  if (play_list->GetText() == _T("Auto")) {
+    ret += m_PaintManager.FindControl(_T("net_name_list"))->GetText() + _T("\" ");
+  } else {
+    ret += xml_manager_->GetNodeInfo(play_list->GetText()).net_name + _T("\" ");
+  }
+  return ret;
+}
+
 void Manager::OnClickTestBtn()
 {
-  INetConnectionManager *net_manager = nullptr;
-  INetConnection *net_conn = nullptr;
-  IEnumNetConnection *net_enum = nullptr;
-  ULONG celt_fetched;
-
-  setlocale(LC_CTYPE, "");
-  CoInitialize(NULL);
-  CoCreateInstance(CLSID_ConnectionManager, NULL, CLSCTX_SERVER, IID_INetConnectionManager, (void**)&net_manager);
-  if (net_manager == nullptr) {
-    MessageBox(nullptr, _T("网络检测失败！"), _T("ERROR"), MB_OK);
-    return;
-  }
-  net_manager->EnumConnections(NCME_DEFAULT, &net_enum);
-  while (net_enum->Next(1, &net_conn, &celt_fetched) == S_OK)
-  {
-
-  }
-
-  NETCON_PROPERTIES net_proper;
-  
 }

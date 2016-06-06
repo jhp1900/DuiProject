@@ -14,7 +14,6 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 	home_wnd.CenterWindow();
   home_wnd.ShowModal();
 
-	delete home_wnd;
 	::CoUninitialize();
 
 	return 0;

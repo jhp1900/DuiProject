@@ -4,7 +4,9 @@
 
 void _NETSTRUCT::SetVar(LPCTSTR name, LPCTSTR value)
 {
-  if (name == _T("IPAddress"))
+  if (name == _T("NetName"))
+    net_name = value;
+  else if (name == _T("IPAddress"))
     ip_address = value;
   else if (name == _T("Netmask"))
     netmask = value;
@@ -18,7 +20,9 @@ void _NETSTRUCT::SetVar(LPCTSTR name, LPCTSTR value)
 
 CDuiString _NETSTRUCT::GetVar(LPCTSTR name)
 {
-  if (name == _T("IPAddress"))
+  if (name == _T("NetName"))
+    return net_name;
+  else if (name == _T("IPAddress"))
     return ip_address;
   else if (name == _T("Netmask"))
     return netmask;
@@ -39,7 +43,8 @@ XmlManager::XmlManager() :
     _T("Netmask"),
     _T("Gateway"),
     _T("FirstDNS"),
-    _T("SecondDNS")
+    _T("SecondDNS"),
+    _T("NetName")
   };
   for (auto iter : temp_str)
     net_attrs_.push_back(iter);

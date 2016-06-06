@@ -5,6 +5,7 @@
 typedef struct _NETSTRUCT
 {
   CDuiString play_name;   // 方案名
+  CDuiString net_name;    // 网络名称
   CDuiString ip_address;  // IP 地址
   CDuiString netmask;     // 子网掩码
   CDuiString gateway;     // 默认网关
