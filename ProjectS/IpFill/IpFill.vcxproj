@@ -186,7 +186,7 @@
     <ResourceCompile Include="IpFill.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="D:\NSIS\LOGO.ico" />
+    <Image Include="..\build\IpFill\skin\res\LOGO.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -42,6 +42,7 @@ private:
   CDuiString MakeComLine(vector<CDuiString> prarm);
   LPCTSTR GetNetName();
   void OnClickTestBtn();
+  void AddTray();
 
 private:
   XmlManager *xml_manager_;

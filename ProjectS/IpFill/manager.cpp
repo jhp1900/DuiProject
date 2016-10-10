@@ -4,6 +4,7 @@
 #include <shellapi.h>
 #include "res_singleton.h"
 #include <NetCon.h>
+#include "resource.h"
 
 Manager::Manager() 
 {
@@ -23,6 +24,8 @@ void Manager::Notify(TNotifyUI & msg)
 
 LRESULT Manager::OnInit()
 {
+	::SendMessage(*this, WM_SETICON, ICON_BIG, (LPARAM)LoadIcon((HINSTANCE)GetWindowLongPtr(m_hWnd, GWLP_HINSTANCE), MAKEINTRESOURCE(IDI_ICON1)));
+
   FlushPlayList();    // 读取所有的方案名，并填入方案名下来列表中
 
   EnumNetName();      // 枚举所有网卡的网络名称
@@ -354,4 +357,19 @@ LPCTSTR Manager::GetNetName()
 
 void Manager::OnClickTestBtn()
 {
+}
+
+void Manager::AddTray()
+{
+	NOTIFYICONDATA wnd_to_tray;
+
+	wnd_to_tray.cbSize = (DWORD)sizeof(NOTIFYICONDATA);
+	wnd_to_tray.hWnd = this->m_hWnd;
+	wnd_to_tray.uID = 1;
+	wnd_to_tray.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
+	wnd_to_tray.uCallbackMessage = kAM_ShowTaskMsg;
+	wnd_to_tray.hIcon = LoadIcon((HINSTANCE)GetWindowLongPtr(m_hWnd, GWLP_HINSTANCE), MAKEINTRESOURCE(IDI_ICON1));
+
+	wcscpy_s(wnd_to_tray.szTip, L"成都天狐威视IVGA");
+	Shell_NotifyIcon(NIM_ADD, &wnd_to_tray);
 }

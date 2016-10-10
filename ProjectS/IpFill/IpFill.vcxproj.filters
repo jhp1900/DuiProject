@@ -93,7 +93,7 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="D:\NSIS\LOGO.ico">
+    <Image Include="..\build\IpFill\skin\res\LOGO.ico">
       <Filter>资源文件</Filter>
     </Image>
   </ItemGroup>
