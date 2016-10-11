@@ -3,6 +3,7 @@
 #include "ip_control_ui.h"
 #include "msg_head.h"
 #include "xml_manager.h"
+#include "tray_pop_wnd.h"
 
 class Manager : public WindowImplBase
 {
@@ -15,6 +16,10 @@ public:
 		DUICONTROL_CREATE(_T("IpControlLayout"), IpControlUI)
 	END_DUICONTROL_CREATE()
 
+	BEGIN_DUIMSG_MAP(Manager)
+		DUIMSG_HANDLER(kAM_TrayCallbackMsg, OnTray)
+	END_DUIMSG_MAP()
+
 	virtual CDuiString GetSkinFolder() override { return _T("skin"); }
 	virtual CDuiString GetSkinFile() override { return _T("manager.xml"); }
 	virtual LPCTSTR GetWindowClassName(void) const override { return _T("Manager"); }
@@ -23,6 +28,9 @@ public:
 private:
 	virtual LRESULT OnInit() override;
 	virtual void OnUserClick(const TNotifyUI& msg) override;
+
+private:
+	LRESULT OnTray(UINT uMsg, WPARAM wparam, LPARAM lparam, BOOL& bHandled);
 
 private:
 	void OnClickAddPlayBtn();
@@ -47,4 +55,5 @@ private:
 private:
 	XmlManager *xml_manager_;
 	vector<IpControlUI *> ip_ui_vector_;
+	TrayPopWnd tray_pop_wnd_;
 };

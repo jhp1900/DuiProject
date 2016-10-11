@@ -25,6 +25,7 @@ void Manager::Notify(TNotifyUI & msg)
 LRESULT Manager::OnInit()
 {
 	::SendMessage(*this, WM_SETICON, ICON_BIG, (LPARAM)LoadIcon((HINSTANCE)GetWindowLongPtr(m_hWnd, GWLP_HINSTANCE), MAKEINTRESOURCE(IDI_ICON1)));
+	AddTray();
 
 	FlushPlayList();    // 读取所有的方案名，并填入方案名下来列表中
 
@@ -64,6 +65,24 @@ void Manager::OnUserClick(const TNotifyUI& msg)
 	} else if (msg.pSender->GetName() == _T("test_btn")) {      // 测试内容
 		OnClickTestBtn();
 	}
+}
+
+LRESULT Manager::OnTray(UINT uMsg, WPARAM wparam, LPARAM lparam, BOOL & bHandled)
+{
+	if (wparam != 1)
+		return 0;
+	switch (lparam)
+	{
+		case WM_LBUTTONUP:
+			break;
+		case WM_RBUTTONUP:
+			LPPOINT lpoint = new tagPOINT;
+			::GetCursorPos(lpoint);
+			tray_pop_wnd_.PopupWindow(lpoint);
+			break;
+	}
+
+	return LRESULT();
 }
 
 void Manager::OnClickAddPlayBtn()
@@ -361,15 +380,17 @@ void Manager::OnClickTestBtn()
 
 void Manager::AddTray()
 {
-	NOTIFYICONDATA wnd_to_tray;
+	tray_pop_wnd_.CreateWithDefaltStyle(m_hWnd);
 
-	wnd_to_tray.cbSize = (DWORD)sizeof(NOTIFYICONDATA);
-	wnd_to_tray.hWnd = this->m_hWnd;
-	wnd_to_tray.uID = 1;
-	wnd_to_tray.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
-	wnd_to_tray.uCallbackMessage = kAM_ShowTaskMsg;
-	wnd_to_tray.hIcon = LoadIcon((HINSTANCE)GetWindowLongPtr(m_hWnd, GWLP_HINSTANCE), MAKEINTRESOURCE(IDI_ICON1));
+	NOTIFYICONDATA tray_data;
 
-	wcscpy_s(wnd_to_tray.szTip, L"成都天狐威视IVGA");
-	Shell_NotifyIcon(NIM_ADD, &wnd_to_tray);
+	tray_data.cbSize = (DWORD)sizeof(NOTIFYICONDATA);
+	tray_data.hWnd = this->m_hWnd;
+	tray_data.uID = 1;
+	tray_data.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
+	tray_data.uCallbackMessage = kAM_TrayCallbackMsg;
+	tray_data.hIcon = LoadIcon((HINSTANCE)GetWindowLongPtr(m_hWnd, GWLP_HINSTANCE), MAKEINTRESOURCE(IDI_ICON1));
+
+	wcscpy_s(tray_data.szTip, L"成都天狐威视IVGA");
+	Shell_NotifyIcon(NIM_ADD, &tray_data);
 }

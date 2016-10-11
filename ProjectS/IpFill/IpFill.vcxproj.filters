@@ -45,6 +45,9 @@
     <ClCompile Include="edit_more_wnd.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="tray_pop_wnd.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="manager.h">
@@ -84,6 +87,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="tray_pop_wnd.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
