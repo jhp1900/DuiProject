@@ -6,7 +6,7 @@
 		<Gateway value="10.18.3.1" />
 		<FirstDNS value="218.6.200.139" />
 		<SecondDNS value="61.139.2.69" />
-		<NetName value="ÒÔÌ«Íø" />
+		<NetName value="ä»¥å¤ªç½‘" />
 		<MoreIP>
 			<AddIPChild ip="192.0.0.211" netmask="255.255.255.0" />
 			<AddIPChild ip="18.18.8.28" netmask="255.255.255.0" />
@@ -18,7 +18,7 @@
 		<Gateway value="18.18.8.1" />
 		<FirstDNS value="218.6.200.139" />
 		<SecondDNS value="61.139.2.69" />
-		<NetName value="WLAN" />
+		<NetName value="ä»¥å¤ªç½‘" />
 		<MoreIP />
 	</Play>
 </Info>

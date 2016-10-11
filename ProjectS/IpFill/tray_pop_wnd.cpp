@@ -48,6 +48,23 @@ LRESULT TrayPopWnd::OnKillFocus(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL & 
 	return 0;
 }
 
+void TrayPopWnd::OnClickBtn(TNotifyUI & msg, bool & handled)
+{
+	CDuiString ctrl_name = msg.pSender->GetName();
+	if (ctrl_name == _T("pop_home")) {
+		::PostMessage(pa_hwnd_, kAM_TrayPopHomeMsg, 0, 0);
+	} else if (ctrl_name == _T("pop_exit")) {
+		::PostMessage(pa_hwnd_, kAM_TrayPopExitMsg, 0, 0);
+	}
+	ShowWindow(SW_HIDE);
+}
+
+void TrayPopWnd::OnSelectChanged(TNotifyUI & msg, bool & handled)
+{
+	CDuiString ctrl_name = msg.pSender->GetName();
+	bool check = static_cast<PDUI_CHECKBOX>(msg.pSender)->GetCheck();
+}
+
 void TrayPopWnd::PopupWindow(PPOINT point, bool left_bottom)
 {
 	int srceen_width = ::GetSystemMetrics(SM_CXSCREEN);
@@ -55,10 +72,10 @@ void TrayPopWnd::PopupWindow(PPOINT point, bool left_bottom)
 	int x = point->x;
 	int y = point->y;
 
-	if (x + 70 > srceen_width)
-		x -= 70;
-	if (y + 124 > srceen_height)
-		y -= 124;
+	if (x + 125 > srceen_width)
+		x -= 125;
+	if (y + 150 > srceen_height)
+		y -= 150;
 
 	::SetWindowPos(m_hWnd, 0, x, y, 0, 0, SWP_NOZORDER | SWP_NOSIZE);
 	ShowWindow();

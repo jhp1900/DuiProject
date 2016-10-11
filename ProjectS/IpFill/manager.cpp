@@ -13,15 +13,6 @@ Manager::Manager()
 	xml_manager_->LoadFile(CPaintManagerUI::GetInstancePath(), _T("config.xml"));
 }
 
-void Manager::Notify(TNotifyUI & msg)
-{
-	if (msg.sType == _T("itemselect"))
-		if (msg.pSender->GetName() == _T("play_list"))
-			OnSelectPlay(msg);
-
-	__super::Notify(msg);
-}
-
 LRESULT Manager::OnInit()
 {
 	::SendMessage(*this, WM_SETICON, ICON_BIG, (LPARAM)LoadIcon((HINSTANCE)GetWindowLongPtr(m_hWnd, GWLP_HINSTANCE), MAKEINTRESOURCE(IDI_ICON1)));
@@ -48,7 +39,67 @@ LRESULT Manager::OnInit()
 	return 0;
 }
 
-void Manager::OnUserClick(const TNotifyUI& msg)
+LRESULT Manager::OnTray(UINT uMsg, WPARAM wparam, LPARAM lparam, BOOL & bHandled)
+{
+	if (wparam != 1)
+		return 0;
+	switch (lparam)
+	{
+		case WM_LBUTTONUP:
+			ShowWindow(SW_SHOW);
+			break;
+		case WM_RBUTTONUP:
+			LPPOINT lpoint = new tagPOINT;
+			::GetCursorPos(lpoint);
+			tray_pop_wnd_.PopupWindow(lpoint);
+			break;
+	}
+
+	return LRESULT();
+}
+
+LRESULT Manager::OnPopHomeMsg(UINT uMsg, WPARAM wparam, LPARAM lparam, BOOL & bHandled)
+{
+	ShowWindow(SW_SHOW);
+	return LRESULT();
+}
+
+LRESULT Manager::OnPopExitMsg(UINT uMsg, WPARAM wparam, LPARAM lparam, BOOL & bHandled)
+{
+	Close();
+	return LRESULT();
+}
+
+void Manager::OnSelectPlay(TNotifyUI & msg, bool & handled)
+{
+	SetControlEnabled(false);
+	CDuiString play_name = msg.pSender->GetText();
+	if (play_name == _T("Auto")) {
+		for (auto iter : ip_ui_vector_) {
+			iter->SetText(_T("..."));
+		}
+		m_PaintManager.FindControl(_T("net_name_list"))->SetEnabled(true);  // Auto 状态下，网络名称列表可用
+		return;
+	}
+
+	NETSTRUCT net_info = xml_manager_->GetNodeInfo(play_name);
+	for (int i = 0; i != 5; ++i) {
+		ip_ui_vector_[i]->SetText(net_info.GetVar(xml_manager_->net_attrs_[i]));
+	}
+	SetNetName(net_info.net_name);
+}
+
+void Manager::OnClickSysBtn(TNotifyUI & msg, bool & handled)
+{
+	CDuiString ctrl_name = msg.pSender->GetName();
+	if (ctrl_name == _T("minbtn")) {
+		SendMessage(WM_SYSCOMMAND, SC_MINIMIZE, 0);
+	} else if (ctrl_name == _T("closebtn")) {
+		ShowWindow(SW_HIDE);
+	}
+}
+
+void Manager::OnClickUserBtn(TNotifyUI & msg, bool & handled)
 {
 	if (msg.pSender->GetName() == _T("start_play_btn")) {       // 启动方案
 		StartPlay();
@@ -65,24 +116,6 @@ void Manager::OnUserClick(const TNotifyUI& msg)
 	} else if (msg.pSender->GetName() == _T("test_btn")) {      // 测试内容
 		OnClickTestBtn();
 	}
-}
-
-LRESULT Manager::OnTray(UINT uMsg, WPARAM wparam, LPARAM lparam, BOOL & bHandled)
-{
-	if (wparam != 1)
-		return 0;
-	switch (lparam)
-	{
-		case WM_LBUTTONUP:
-			break;
-		case WM_RBUTTONUP:
-			LPPOINT lpoint = new tagPOINT;
-			::GetCursorPos(lpoint);
-			tray_pop_wnd_.PopupWindow(lpoint);
-			break;
-	}
-
-	return LRESULT();
 }
 
 void Manager::OnClickAddPlayBtn()
@@ -228,25 +261,6 @@ void Manager::SetNetName(LPCTSTR net_name)
 	}
 
 	//  MessageBox(nullptr, _T(""), _T(""), MB_OK);
-}
-
-void Manager::OnSelectPlay(TNotifyUI & msg)
-{
-	SetControlEnabled(false);
-	CDuiString play_name = msg.pSender->GetText();
-	if (play_name == _T("Auto")) {
-		for (auto iter : ip_ui_vector_) {
-			iter->SetText(_T("..."));
-		}
-		m_PaintManager.FindControl(_T("net_name_list"))->SetEnabled(true);  // Auto 状态下，网络名称列表可用
-		return;
-	}
-
-	NETSTRUCT net_info = xml_manager_->GetNodeInfo(play_name);
-	for (int i = 0; i != 5; ++i) {
-		ip_ui_vector_[i]->SetText(net_info.GetVar(xml_manager_->net_attrs_[i]));
-	}
-	SetNetName(net_info.net_name);
 }
 
 void Manager::StartPlay()

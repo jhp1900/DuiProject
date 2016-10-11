@@ -18,19 +18,39 @@ public:
 
 	BEGIN_DUIMSG_MAP(Manager)
 		DUIMSG_HANDLER(kAM_TrayCallbackMsg, OnTray)
+		DUIMSG_HANDLER(kAM_TrayPopHomeMsg, OnPopHomeMsg)
+		DUIMSG_HANDLER(kAM_TrayPopExitMsg, OnPopExitMsg)
 	END_DUIMSG_MAP()
+
+	BEGIN_DUINOTIFY_MAP(Manager)
+		DUINOTIFY_HANDLER(_T("play_list"), DUINOTIFY_ITEMSELECT, OnSelectPlay)
+		DUINOTIFY_HANDLER(_T("minbtn"), DUINOTIFY_CLICK, OnClickSysBtn)
+		DUINOTIFY_HANDLER(_T("closebtn"), DUINOTIFY_CLICK, OnClickSysBtn)
+		DUINOTIFY_HANDLER(_T("start_play_btn"), DUINOTIFY_CLICK, OnClickUserBtn)
+		DUINOTIFY_HANDLER(_T("advanced_btn"), DUINOTIFY_CLICK, OnClickUserBtn)
+		DUINOTIFY_HANDLER(_T("edit_play_btn"), DUINOTIFY_CLICK, OnClickUserBtn)
+		DUINOTIFY_HANDLER(_T("update_play_btn"), DUINOTIFY_CLICK, OnClickUserBtn)
+		DUINOTIFY_HANDLER(_T("del_play_btn"), DUINOTIFY_CLICK, OnClickUserBtn)
+		DUINOTIFY_HANDLER(_T("add_play_btn"), DUINOTIFY_CLICK, OnClickUserBtn)
+		DUINOTIFY_HANDLER(_T("test_btn"), DUINOTIFY_CLICK, OnClickUserBtn)
+	END_DUINOTIFY_MAP()
 
 	virtual CDuiString GetSkinFolder() override { return _T("skin"); }
 	virtual CDuiString GetSkinFile() override { return _T("manager.xml"); }
 	virtual LPCTSTR GetWindowClassName(void) const override { return _T("Manager"); }
-	virtual void Notify(TNotifyUI& msg) override;
 
 private:
 	virtual LRESULT OnInit() override;
-	virtual void OnUserClick(const TNotifyUI& msg) override;
 
 private:
 	LRESULT OnTray(UINT uMsg, WPARAM wparam, LPARAM lparam, BOOL& bHandled);
+	LRESULT OnPopHomeMsg(UINT uMsg, WPARAM wparam, LPARAM lparam, BOOL& bHandled);
+	LRESULT OnPopExitMsg(UINT uMsg, WPARAM wparam, LPARAM lparam, BOOL& bHandled);
+
+private:
+	void OnSelectPlay(TNotifyUI &msg, bool &handled);
+	void OnClickSysBtn(TNotifyUI &msg, bool &handled);
+	void OnClickUserBtn(TNotifyUI &msg, bool &handled);
 
 private:
 	void OnClickAddPlayBtn();
@@ -42,7 +62,6 @@ private:
 	void FlushPlayList();
 	void EnumNetName();
 	void SetNetName(LPCTSTR net_name);
-	void OnSelectPlay(TNotifyUI &msg);
 	void StartPlay();
 	BOOL ExcuteCommand(LPCTSTR command_lien);               // 执行一个命令
 	BOOL ExcuteCommand(vector<CDuiString> command_lien_s);     // 执行一组命令集
