@@ -9,10 +9,10 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 	CPaintManagerUI::SetInstance(hInstance);
 	CPaintManagerUI::SetResourcePath(CPaintManagerUI::GetInstancePath() + _T("skin"));
 
-  Manager home_wnd;
+	Manager home_wnd;
 	home_wnd.Create(NULL, _T("DUIWnd"), UI_WNDSTYLE_FRAME, WS_EX_WINDOWEDGE);
 	home_wnd.CenterWindow();
-  home_wnd.ShowModal();
+	home_wnd.ShowModal();
 
 	::CoUninitialize();
 

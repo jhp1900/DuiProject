@@ -4,28 +4,28 @@
 class AdvancedWnd : public WindowImplBase
 {
 public:
-  AdvancedWnd();
-  AdvancedWnd(LPCTSTR play_name);
-  ~AdvancedWnd();
+	AdvancedWnd();
+	AdvancedWnd(LPCTSTR play_name);
+	~AdvancedWnd();
 
-  DECLARE_DUIWND_INFO(_T("AdvancedWnd"), CS_DBLCLKS, _T("advanced_wnd.xml"))
+	DECLARE_DUIWND_INFO(_T("AdvancedWnd"), CS_DBLCLKS, _T("advanced_wnd.xml"))
 
 private:
-  virtual LRESULT OnInit() override;
-  virtual void OnUserClick(const TNotifyUI& msg) override;
+	virtual LRESULT OnInit() override;
+	virtual void OnUserClick(const TNotifyUI& msg) override;
 
 public:
-  BOOL DoModal(HWND pa_hwnd);
+	BOOL DoModal(HWND pa_hwnd);
 
 private:
-  void FlushList();
-  void OnClickAddBtn();
-  void OnClickUpdateBtn();
-  void OnClickDelBtn();
+	void FlushList();
+	void OnClickAddBtn();
+	void OnClickUpdateBtn();
+	void OnClickDelBtn();
 
 private:
-  CDuiString play_name_;
-  vector<CDuiString> ip_;
-  vector<CDuiString> netmask_;
+	CDuiString play_name_;
+	vector<CDuiString> ip_;
+	vector<CDuiString> netmask_;
 };
 

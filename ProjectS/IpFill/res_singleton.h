@@ -4,16 +4,16 @@
 class ResSingleton
 {
 private:
-  ResSingleton();
+	ResSingleton();
 
 public:
-  static ResSingleton* GetInstance();
-  static void DestroyInstance();
+	static ResSingleton* GetInstance();
+	static void DestroyInstance();
 
-  XmlManager* GetXmlManager();
+	XmlManager* GetXmlManager();
 
 private:
-  static ResSingleton* instance_;
-  XmlManager xml_manager_;
+	static ResSingleton* instance_;
+	XmlManager xml_manager_;
 };
 

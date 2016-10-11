@@ -23,18 +23,15 @@ BOOL WindowImplBase::OnSysClick(TNotifyUI& msg)
 	{
 		Close();
 		return TRUE;
-	}
-	else if (sCtrlName == _T("minbtn"))
+	} else if (sCtrlName == _T("minbtn"))
 	{
 		SendMessage(WM_SYSCOMMAND, SC_MINIMIZE, 0);
 		return TRUE;
-	}
-	else if (sCtrlName == _T("maxbtn"))
+	} else if (sCtrlName == _T("maxbtn"))
 	{
 		SendMessage(WM_SYSCOMMAND, SC_MAXIMIZE, 0);
 		return TRUE;
-	}
-	else if (sCtrlName == _T("restorebtn"))
+	} else if (sCtrlName == _T("restorebtn"))
 	{
 		SendMessage(WM_SYSCOMMAND, SC_RESTORE, 0);
 		return TRUE;
@@ -47,8 +44,7 @@ LRESULT WindowImplBase::ResponseDefaultKeyEvent(WPARAM wParam)
 	if (wParam == VK_RETURN)
 	{
 		return FALSE;
-	}
-	else if (wParam == VK_ESCAPE)
+	} else if (wParam == VK_ESCAPE)
 	{
 		Close();
 		return TRUE;
@@ -89,26 +85,26 @@ LRESULT WindowImplBase::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 	switch (uMsg)
 	{
-	case WM_CREATE:			lRes = OnCreate(uMsg, wParam, lParam, bHandled);		break;
-	case WM_CLOSE:			lRes = OnClose(uMsg, wParam, lParam, bHandled);			break;
-	case WM_DESTROY:		lRes = OnDestroy(uMsg, wParam, lParam, bHandled);		break;
-	case WM_NCACTIVATE:		lRes = OnNcActivate(uMsg, wParam, lParam, bHandled);	break;
-	case WM_NCCALCSIZE:		lRes = OnNcCalcSize(uMsg, wParam, lParam, bHandled);	break;
-	case WM_NCPAINT:		lRes = OnNcPaint(uMsg, wParam, lParam, bHandled);		break;
-	case WM_NCHITTEST:		lRes = OnNcHitTest(uMsg, wParam, lParam, bHandled);		break;
-	case WM_GETMINMAXINFO:	lRes = OnGetMinMaxInfo(uMsg, wParam, lParam, bHandled); break;
-	case WM_MOUSEWHEEL:		lRes = OnMouseWheel(uMsg, wParam, lParam, bHandled);	break;
-	case WM_SIZE:			lRes = OnSize(uMsg, wParam, lParam, bHandled);			break;
-	case WM_CHAR:			lRes = OnChar(uMsg, wParam, lParam, bHandled);			break;
-	case WM_SYSCOMMAND:		lRes = OnSysCommand(uMsg, wParam, lParam, bHandled);	break;
-	case WM_KEYDOWN:		lRes = OnKeyDown(uMsg, wParam, lParam, bHandled);		break;
-	case WM_KILLFOCUS:		lRes = OnKillFocus(uMsg, wParam, lParam, bHandled);		break;
-	case WM_SETFOCUS:		lRes = OnSetFocus(uMsg, wParam, lParam, bHandled);		break;
-	case WM_LBUTTONUP:		lRes = OnLButtonUp(uMsg, wParam, lParam, bHandled);		break;
-	case WM_LBUTTONDOWN:	lRes = OnLButtonDown(uMsg, wParam, lParam, bHandled);	break;
-	case WM_MOUSEMOVE:		lRes = OnMouseMove(uMsg, wParam, lParam, bHandled);		break;
-	case WM_MOUSEHOVER:		lRes = OnMouseHover(uMsg, wParam, lParam, bHandled);	break;
-	default:				bHandled = FALSE;  break;
+		case WM_CREATE:			lRes = OnCreate(uMsg, wParam, lParam, bHandled);		break;
+		case WM_CLOSE:			lRes = OnClose(uMsg, wParam, lParam, bHandled);			break;
+		case WM_DESTROY:		lRes = OnDestroy(uMsg, wParam, lParam, bHandled);		break;
+		case WM_NCACTIVATE:		lRes = OnNcActivate(uMsg, wParam, lParam, bHandled);	break;
+		case WM_NCCALCSIZE:		lRes = OnNcCalcSize(uMsg, wParam, lParam, bHandled);	break;
+		case WM_NCPAINT:		lRes = OnNcPaint(uMsg, wParam, lParam, bHandled);		break;
+		case WM_NCHITTEST:		lRes = OnNcHitTest(uMsg, wParam, lParam, bHandled);		break;
+		case WM_GETMINMAXINFO:	lRes = OnGetMinMaxInfo(uMsg, wParam, lParam, bHandled); break;
+		case WM_MOUSEWHEEL:		lRes = OnMouseWheel(uMsg, wParam, lParam, bHandled);	break;
+		case WM_SIZE:			lRes = OnSize(uMsg, wParam, lParam, bHandled);			break;
+		case WM_CHAR:			lRes = OnChar(uMsg, wParam, lParam, bHandled);			break;
+		case WM_SYSCOMMAND:		lRes = OnSysCommand(uMsg, wParam, lParam, bHandled);	break;
+		case WM_KEYDOWN:		lRes = OnKeyDown(uMsg, wParam, lParam, bHandled);		break;
+		case WM_KILLFOCUS:		lRes = OnKillFocus(uMsg, wParam, lParam, bHandled);		break;
+		case WM_SETFOCUS:		lRes = OnSetFocus(uMsg, wParam, lParam, bHandled);		break;
+		case WM_LBUTTONUP:		lRes = OnLButtonUp(uMsg, wParam, lParam, bHandled);		break;
+		case WM_LBUTTONDOWN:	lRes = OnLButtonDown(uMsg, wParam, lParam, bHandled);	break;
+		case WM_MOUSEMOVE:		lRes = OnMouseMove(uMsg, wParam, lParam, bHandled);		break;
+		case WM_MOUSEHOVER:		lRes = OnMouseHover(uMsg, wParam, lParam, bHandled);	break;
+		default:				bHandled = FALSE;  break;
 	}
 
 	if (bHandled) return lRes;
@@ -133,11 +129,11 @@ LRESULT WindowImplBase::MessageHandler(UINT uMsg, WPARAM wParam, LPARAM lParam, 
 	{
 		switch (wParam)
 		{
-		case VK_RETURN:
-		case VK_ESCAPE:
-			return ResponseDefaultKeyEvent(wParam);
-		default:
-			break;
+			case VK_RETURN:
+			case VK_ESCAPE:
+				return ResponseDefaultKeyEvent(wParam);
+			default:
+				break;
 		}
 	}
 	return FALSE;
@@ -179,37 +175,37 @@ LRESULT WindowImplBase::OnCreate(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& 
 
 	switch (GetResourceType())
 	{
-	case UILIB_ZIP:
-		m_PaintManager.SetResourceZip(GetZIPFileName().GetData(), true);
-		break;
-	case UILIB_ZIPRESOURCE:
-	{
-		HRSRC hResource = ::FindResource(m_PaintManager.GetResourceDll(), GetResourceID(), _T("ZIPRES"));
-		if (hResource == NULL)
-			return 0L;
-		DWORD dwSize = 0;
-		HGLOBAL hGlobal = ::LoadResource(m_PaintManager.GetResourceDll(), hResource);
-		if (hGlobal == NULL)
+		case UILIB_ZIP:
+			m_PaintManager.SetResourceZip(GetZIPFileName().GetData(), true);
+			break;
+		case UILIB_ZIPRESOURCE:
 		{
+			HRSRC hResource = ::FindResource(m_PaintManager.GetResourceDll(), GetResourceID(), _T("ZIPRES"));
+			if (hResource == NULL)
+				return 0L;
+			DWORD dwSize = 0;
+			HGLOBAL hGlobal = ::LoadResource(m_PaintManager.GetResourceDll(), hResource);
+			if (hGlobal == NULL)
+			{
+#if defined(WIN32) && !defined(UNDER_CE)
+				::FreeResource(hResource);
+#endif
+				return 0L;
+			}
+			dwSize = ::SizeofResource(m_PaintManager.GetResourceDll(), hResource);
+			if (dwSize == 0)
+				return 0L;
+			m_lpResourceZIPBuffer = new BYTE[dwSize];
+			if (m_lpResourceZIPBuffer != NULL)
+			{
+				::CopyMemory(m_lpResourceZIPBuffer, (LPBYTE)::LockResource(hGlobal), dwSize);
+			}
 #if defined(WIN32) && !defined(UNDER_CE)
 			::FreeResource(hResource);
 #endif
-			return 0L;
+			m_PaintManager.SetResourceZip(m_lpResourceZIPBuffer, dwSize);
 		}
-		dwSize = ::SizeofResource(m_PaintManager.GetResourceDll(), hResource);
-		if (dwSize == 0)
-			return 0L;
-		m_lpResourceZIPBuffer = new BYTE[dwSize];
-		if (m_lpResourceZIPBuffer != NULL)
-		{
-			::CopyMemory(m_lpResourceZIPBuffer, (LPBYTE)::LockResource(hGlobal), dwSize);
-		}
-#if defined(WIN32) && !defined(UNDER_CE)
-		::FreeResource(hResource);
-#endif
-		m_PaintManager.SetResourceZip(m_lpResourceZIPBuffer, dwSize);
-	}
-	break;
+		break;
 	}
 
 	CControlUI* pRoot = NULL;
@@ -217,8 +213,7 @@ LRESULT WindowImplBase::OnCreate(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& 
 	{
 		STRINGorID xml(_ttoi(GetSkinFile().GetData()));
 		pRoot = builder.Create(xml, _T("xml"), this, &m_PaintManager);
-	}
-	else
+	} else
 		pRoot = builder.Create(GetSkinFile().GetData(), (UINT)0, this, &m_PaintManager);
 	ASSERT(pRoot);
 	if (pRoot == NULL)
@@ -249,8 +244,7 @@ LRESULT WindowImplBase::OnNcCalcSize(UINT uMsg, WPARAM wParam, LPARAM lParam, BO
 	{
 		LPNCCALCSIZE_PARAMS pParam = (LPNCCALCSIZE_PARAMS)lParam;
 		pRect = &pParam->rgrc[0];
-	}
-	else
+	} else
 		pRect = (LPRECT)lParam;
 
 	if (::IsZoomed(m_hWnd))
@@ -292,8 +286,7 @@ LRESULT WindowImplBase::OnNcHitTest(UINT uMsg, WPARAM wParam, LPARAM lParam, BOO
 			if (pt.x < rcClient.left + rcSizeBox.left) return HTTOPLEFT;
 			if (pt.x > rcClient.right - rcSizeBox.right) return HTTOPRIGHT;
 			return HTTOP;
-		}
-		else if (pt.y > rcClient.bottom - rcSizeBox.bottom)
+		} else if (pt.y > rcClient.bottom - rcSizeBox.bottom)
 		{
 			if (pt.x < rcClient.left + rcSizeBox.left) return HTBOTTOMLEFT;
 			if (pt.x > rcClient.right - rcSizeBox.right) return HTBOTTOMRIGHT;

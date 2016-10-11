@@ -4,19 +4,19 @@
 class AddNewPlayWnd : public WindowImplBase
 {
 public:
-  AddNewPlayWnd();
-  ~AddNewPlayWnd();
+	AddNewPlayWnd();
+	~AddNewPlayWnd();
 
-  DECLARE_DUIWND_INFO(_T("AddNewPalyWnd"), CS_DBLCLKS, _T("new_play_name.xml"))
+	DECLARE_DUIWND_INFO(_T("AddNewPalyWnd"), CS_DBLCLKS, _T("new_play_name.xml"))
 
 public:
-  BOOL DoModal(HWND pa_hwnd);
-  LPCTSTR GetNewName() { return new_name_; }
+	BOOL DoModal(HWND pa_hwnd);
+	LPCTSTR GetNewName() { return new_name_; }
 
 private:
-  virtual void OnUserClick(const TNotifyUI& msg) override;
+	virtual void OnUserClick(const TNotifyUI& msg) override;
 
 private:
-  CDuiString new_name_;
+	CDuiString new_name_;
 };
 
