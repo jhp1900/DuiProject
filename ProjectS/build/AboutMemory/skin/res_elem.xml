@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>  
-<Window size="100,100">
-  <Container bordersize="1" inset="1,1,1,1">
-    <Button name="delete" float="true" pos="2,2,27,27" normalimage="res\btn_del_nor.png" hotimage="res\btn_del_hot.png" />
-    <Label name="name" text="" textpadding="5,0,5,0" bkcolor="55555555" float="true" pos="0,85,110,100" />
-    <Label name="path_name" text="" textpadding="5,0,5,0" float="true" pos="0,0,0,0" />
-  </Container>
-</Window>
