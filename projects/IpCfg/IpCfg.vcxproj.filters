@@ -24,6 +24,18 @@
     <ClCompile Include="window_impl_base.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="res_singleton.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="xml_manager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ip_control_ui.cpp">
+      <Filter>头文件</Filter>
+    </ClCompile>
+    <ClCompile Include="tray_pop_wnd.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="manager.h">
@@ -38,5 +50,33 @@
     <ClInclude Include="window_impl_base.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="res_singleton.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="xml_manager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ip_control_ui.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="msg_head.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="tray_pop_wnd.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="IpCfg.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\build\IpCfg\Debug\skin\res\ip_32.ico">
+      <Filter>资源文件</Filter>
+    </Image>
   </ItemGroup>
 </Project>

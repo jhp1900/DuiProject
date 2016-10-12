@@ -6,7 +6,7 @@
     <HorizontalLayout height="28" inset="0,0,0,2">
       <Label width="26" bkimage="res\LOGO.png"/>
       <Control width="5" />
-      <Label text="IpFill" />
+      <Label text="IpCfg" />
       <Button name="minbtn" width="26" text="-" font="0" textpadding="0,8,0,0" hotbkcolor="#ffcc0000" />
       <Button name="closebtn" width="26" text="x" font="0" hotbkcolor="#ffcc0000" />
     </HorizontalLayout>

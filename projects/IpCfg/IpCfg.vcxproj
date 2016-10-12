@@ -152,14 +152,30 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="inlet_function.cpp" />
+    <ClCompile Include="ip_control_ui.cpp" />
     <ClCompile Include="manager.cpp" />
+    <ClCompile Include="res_singleton.cpp" />
+    <ClCompile Include="tray_pop_wnd.cpp" />
     <ClCompile Include="window_impl_base.cpp" />
+    <ClCompile Include="xml_manager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ip_control_ui.h" />
     <ClInclude Include="manager.h" />
+    <ClInclude Include="msg_head.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="res_singleton.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="tray_pop_wnd.h" />
     <ClInclude Include="window_impl_base.h" />
+    <ClInclude Include="xml_manager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="IpCfg.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\build\IpCfg\Debug\skin\res\ip_32.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
