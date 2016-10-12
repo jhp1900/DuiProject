@@ -9,4 +9,5 @@ enum MyMsg
 	kAM_TrayCallbackMsg,		// 托盘图标回掉信息
 	kAM_TrayPopHomeMsg,			// 托盘消息 - 显示主页
 	kAM_TrayPopExitMsg,			// 托盘消息 - 退出软件
+	kAM_TrayPostPopMsg,			// 发送托盘消息给主界面
 };

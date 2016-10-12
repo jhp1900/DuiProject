@@ -20,6 +20,7 @@ public:
 		DUIMSG_HANDLER(kAM_TrayCallbackMsg, OnTray)
 		DUIMSG_HANDLER(kAM_TrayPopHomeMsg, OnPopHomeMsg)
 		DUIMSG_HANDLER(kAM_TrayPopExitMsg, OnPopExitMsg)
+		DUIMSG_HANDLER(kAM_TrayPostPopMsg, OnReceivePopMsg)
 	END_DUIMSG_MAP()
 
 	BEGIN_DUINOTIFY_MAP(Manager)
@@ -46,7 +47,7 @@ private:
 	LRESULT OnTray(UINT uMsg, WPARAM wparam, LPARAM lparam, BOOL& bHandled);
 	LRESULT OnPopHomeMsg(UINT uMsg, WPARAM wparam, LPARAM lparam, BOOL& bHandled);
 	LRESULT OnPopExitMsg(UINT uMsg, WPARAM wparam, LPARAM lparam, BOOL& bHandled);
-
+	LRESULT OnReceivePopMsg(UINT uMsg, WPARAM wparam, LPARAM lparam, BOOL& bHandled);
 private:
 	void OnSelectPlay(TNotifyUI &msg, bool &handled);
 	void OnClickSysBtn(TNotifyUI &msg, bool &handled);

@@ -63,6 +63,12 @@ void TrayPopWnd::OnSelectChanged(TNotifyUI & msg, bool & handled)
 {
 	CDuiString ctrl_name = msg.pSender->GetName();
 	bool check = static_cast<PDUI_CHECKBOX>(msg.pSender)->GetCheck();
+	WPARAM wparam = 0;
+	if (ctrl_name == _T("hotkey"))
+		wparam = 1;
+	else if (ctrl_name == _T("minimize"))
+		wparam = 2;
+	::PostMessage(pa_hwnd_, kAM_TrayPostPopMsg, wparam, check);
 }
 
 void TrayPopWnd::PopupWindow(PPOINT point, bool left_bottom)

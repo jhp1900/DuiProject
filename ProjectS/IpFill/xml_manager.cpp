@@ -65,7 +65,7 @@ BOOL XmlManager::LoadFile(CDuiString file_path, CDuiString file_name)
 			0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 
 		DWORD file_size = 0;
-		CDuiString buffer = _T("<?xml version=\"1.0\"?><Info></Info>");
+		CDuiString buffer = _T("<?xml version=\"1.0\" encoding=\"utf - 8\"?><Info></Info>");
 		::WriteFile(file_handle, buffer, buffer.GetLength() * 2, &file_size, nullptr);
 
 		CloseHandle(file_handle);   // 关闭文件
@@ -98,7 +98,7 @@ void XmlManager::InsertNode(NETSTRUCT net_info)
 		grandson_node.append_attribute("netmask") = WideToMulti(iter.second, temp);
 	}
 
-	file_.save_file(path_and_name_.GetData());
+	SaveFile();
 }
 
 void XmlManager::InsertNode(pugi::xml_node pa_node, pair<string, LPCTSTR> param1, pair<string, LPCTSTR> param2)
@@ -107,7 +107,7 @@ void XmlManager::InsertNode(pugi::xml_node pa_node, pair<string, LPCTSTR> param1
 	pugi::xml_node son_node = pa_node.append_child("AddIPChild");
 	son_node.append_attribute(param1.first.c_str()) = WideToMulti(param1.second, temp);
 	son_node.append_attribute(param2.first.c_str()) = WideToMulti(param2.second, temp);
-	file_.save_file(path_and_name_.GetData());
+	SaveFile();
 }
 
 BOOL XmlManager::UpdateNode(NETSTRUCT net_info)
@@ -123,7 +123,7 @@ BOOL XmlManager::UpdateNode(NETSTRUCT net_info)
 		son_node.attribute("value") = WideToMulti(net_info.GetVar(iter), temp);
 	}
 
-	return file_.save_file(path_and_name_.GetData());
+	return SaveFile();
 }
 
 NETSTRUCT XmlManager::GetNodeInfo(LPCTSTR name)
@@ -196,7 +196,7 @@ BOOL XmlManager::RemoveNode(pugi::xml_node node)
 {
 	pugi::xml_node pa_node = node.parent();
 	BOOL ret = pa_node.remove_child(node);
-	ret = ret && file_.save_file(path_and_name_.GetData());
+	ret = ret && SaveFile();
 
 	return ret;
 }
@@ -207,7 +207,7 @@ BOOL XmlManager::RemoveNode(pugi::xml_node pa_node, int index)
 	for (auto iter : pa_node.children()) {
 		if (i++ == index) {
 			BOOL ret = pa_node.remove_child(iter);
-			ret = ret && file_.save_file(path_and_name_.GetData());
+			ret = ret && SaveFile();
 			return ret;
 		}
 	}
@@ -235,11 +235,36 @@ BOOL XmlManager::UpdateNode(pugi::xml_node pa_node, int index, pair<string, LPCT
 		if (i++ == index) {
 			iter.attribute(param1.first.c_str()) = WideToMulti(param1.second, temp);
 			iter.attribute(param2.first.c_str()) = WideToMulti(param2.second, temp);
-			return file_.save_file(path_and_name_.GetData());
+			return SaveFile();
 		}
 	}
 
 	return FALSE;
+}
+
+bool XmlManager::GetPopSet(LPCTSTR name)
+{
+	char temp[MAX_PATH] = { 0 };
+	pugi::xml_node node = GetNode(WideToMulti(name, temp));
+	pugi::xml_attribute attr = node.attribute("value");
+	if (!attr) {
+		attr = node.append_attribute("value");
+		attr = false;
+		SaveFile();
+	}
+	return attr.as_bool();
+}
+
+bool XmlManager::SetPopSet(LPCTSTR name, bool val)
+{
+	char temp[MAX_PATH] = { 0 };
+	pugi::xml_node node = GetNode(WideToMulti(name, temp));
+	pugi::xml_attribute attr = node.attribute("value");
+	if (!attr)
+		attr = node.append_attribute("value");
+	attr = val;
+
+	return SaveFile();
 }
 
 /* （工具函数） 宽字节 转 多字节 */
@@ -266,4 +291,17 @@ CDuiString XmlManager::MultiToWide(string multi)
 	delete wide_str;
 
 	return ret;
+}
+
+bool XmlManager::SaveFile()
+{
+	return file_.save_file(path_and_name_.GetData(), "  ", pugi::format_indent | pugi::format_write_bom, pugi::encoding_utf8);
+}
+
+pugi::xml_node XmlManager::GetNode(const char * name)
+{
+	pugi::xml_node node = file_.child("Info").child(name);
+	if (!node)
+		node = file_.child("Info").append_child(name);
+	return node;
 }

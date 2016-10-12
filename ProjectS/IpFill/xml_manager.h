@@ -38,9 +38,16 @@ public:
 	BOOL IsHave(pugi::xml_node pa_node, pair<string, LPCTSTR> param1, pair<string, LPCTSTR> param2);
 	BOOL UpdateNode(pugi::xml_node pa_node, int index, pair<string, LPCTSTR> param1, pair<string, LPCTSTR> param2);
 
+	bool GetPopSet(LPCTSTR name);
+	bool SetPopSet(LPCTSTR name, bool val = false);
+
 public:
 	char * WideToMulti(CDuiString wide, char * multi);    // 宽字符转多字节
 	CDuiString MultiToWide(string multi);                 // 多字节转宽字符 
+
+private:
+	bool SaveFile();
+	pugi::xml_node GetNode(const char * name);
 
 public:
 	vector<LPCTSTR> net_attrs_;

@@ -70,6 +70,17 @@ LRESULT Manager::OnPopExitMsg(UINT uMsg, WPARAM wparam, LPARAM lparam, BOOL & bH
 	return LRESULT();
 }
 
+LRESULT Manager::OnReceivePopMsg(UINT uMsg, WPARAM wparam, LPARAM lparam, BOOL & bHandled)
+{
+	if (wparam == 1) {
+		xml_manager_->SetPopSet(_T("hotkey"), lparam);
+	} else if (wparam == 2) {
+		xml_manager_->SetPopSet(_T("minimize"), lparam);
+	}
+
+	return LRESULT();
+}
+
 void Manager::OnSelectPlay(TNotifyUI & msg, bool & handled)
 {
 	SetControlEnabled(false);
@@ -405,6 +416,6 @@ void Manager::AddTray()
 	tray_data.uCallbackMessage = kAM_TrayCallbackMsg;
 	tray_data.hIcon = LoadIcon((HINSTANCE)GetWindowLongPtr(m_hWnd, GWLP_HINSTANCE), MAKEINTRESOURCE(IDI_ICON1));
 
-	wcscpy_s(tray_data.szTip, L"成都天狐威视IVGA");
+	wcscpy_s(tray_data.szTip, L"IpFill");
 	Shell_NotifyIcon(NIM_ADD, &tray_data);
 }
