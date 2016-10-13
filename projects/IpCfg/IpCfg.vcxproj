@@ -73,7 +73,7 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)build\$(ProjectName)\$(Configuration)\</OutDir>
     <IntDir>$(OutDir)obj\$(ProjectName)\</IntDir>
-    <IncludePath>$(ProjectDir)..\..\build;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)..\..\build;$(ProjectDir)..\..\third_party;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)..\..\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -175,7 +175,7 @@
     <ResourceCompile Include="IpCfg.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\build\IpCfg\Debug\skin\res\ip_32.ico" />
+    <Image Include="res\ip_32.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

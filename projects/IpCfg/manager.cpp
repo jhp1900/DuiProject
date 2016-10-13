@@ -41,6 +41,23 @@ LRESULT Manager::OnRespondPopMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &
 	return LRESULT();
 }
 
+void Manager::OnClickSysBtn(TNotifyUI & msg, bool & handled)
+{
+	CDuiString name = msg.pSender->GetName();
+	if (name == _T("minbtn"))
+		SendMessage(WM_SYSCOMMAND, SC_MINIMIZE, 0);
+	else if (name == _T("closebtn"))
+		ShowWindow(SW_HIDE);
+}
+
+void Manager::OnClickUserBtn(TNotifyUI & msg, bool & handled)
+{
+}
+
+void Manager::OnSelectPlay(TNotifyUI & msg, bool & handled)
+{
+}
+
 void Manager::CreatTray()
 {
 	tray_wnd_.CreateWithDefaltStyle(m_hWnd);
