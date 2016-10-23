@@ -9,6 +9,7 @@ private:
 public:
 	static ResSingleton * GetInstance();
 	static void DstroyInstance();
+	XmlManager & GetXmlMamager() { return xml_manager_; }
 
 private:
 	static ResSingleton * instance_;

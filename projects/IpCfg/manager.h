@@ -3,12 +3,13 @@
 #include "ip_control_ui.h"
 #include "msg_head.h"
 #include "tray_pop_wnd.h"
+#include <shellapi.h>
 
 class Manager : public WindowImplBase
 {
 public:
 	Manager();
-	~Manager() {}
+	~Manager();
 
 	BEGIN_DUICONTROL_CREATE(Manager)
 		DUICONTROL_CREATE_FROM_XML(_T("IpControl"), _T("ip_control.xml"))
@@ -50,7 +51,11 @@ private:
 
 private:
 	void CreatTray();
+	void OnChangeHotkey(bool check);
+	void OnChangeMinimize(bool check);
 
 private:
 	TrayPopWnd tray_wnd_;
+	NOTIFYICONDATA tray_data_;
+	bool minimize_;
 };

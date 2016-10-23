@@ -1,4 +1,5 @@
 #include "tray_pop_wnd.h"
+#include "res_singleton.h"
 
 TrayPopWnd::TrayPopWnd()
 	: pa_hwnd_(0)
@@ -11,6 +12,16 @@ TrayPopWnd::~TrayPopWnd()
 
 LRESULT TrayPopWnd::OnInit()
 {
+	XmlManager & xml_manager = ResSingleton::GetInstance()->GetXmlMamager();
+	PDUI_CHECKBOX check_box;
+	check_box = static_cast<PDUI_CHECKBOX>(m_PaintManager.FindControl(_T("hotkey")));
+	if (check_box)
+		check_box->Selected(xml_manager.GetPopAttr(_T("hotkey")));
+
+	check_box = static_cast<PDUI_CHECKBOX>(m_PaintManager.FindControl(_T("minimize")));
+	if (check_box)
+		check_box->Selected(xml_manager.GetPopAttr(_T("minimize")));
+
 	return 0;
 }
 
@@ -66,7 +77,7 @@ void TrayPopWnd::OnSelectChanged(TNotifyUI & msg, bool & handled)
 {
 	CDuiString ctrl_name = msg.pSender->GetName();
 	bool check = static_cast<PDUI_CHECKBOX>(msg.pSender)->GetCheck();
-	WPARAM wparam = 0;
+	WPARAM wparam = -1;
 
 	if (ctrl_name == _T("hotkey"))
 		wparam = kAM_PopSelectHotkayMsg;

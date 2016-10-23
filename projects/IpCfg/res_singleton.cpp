@@ -4,7 +4,8 @@ ResSingleton * ResSingleton::instance_ = nullptr;
 
 ResSingleton::ResSingleton()
 {
-	//xml_manager_.LoadFile(_T("config.xml"));
+	if(!xml_manager_.IsLoad())
+		xml_manager_.LoadFile();
 }
 
 ResSingleton * ResSingleton::GetInstance()
